@@ -1,0 +1,184 @@
+diff --git a/package-lock.json b/package-lock.json
+index 85cdbc7..815f949 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -2251,11 +2251,10 @@
+       }
+     },
+     "node_modules/undici": {
+-      "version": "7.29.1",
+-      "resolved": "https://registry.npmjs.org/undici/-/undici-7.29.1.tgz",
+-      "integrity": "sha512-RYONW2MeafgYlkVOKYKkA/Ag7BmXqgIWCa8t1m0JcxrQg9pI9lEqRhAOruOBCbAohOa/gkCF+iPi9hrgvTzu6Q==",
++      "version": "7.30.1",
++      "resolved": "https://registry.npmjs.org/undici/-/undici-7.30.1.tgz",
++      "integrity": "sha512-03KrMbjIFDWQR5RNPrSw3bd1r12JpyFQl9/yxjUbJtqkjmllqC5lFjZh6ujeuJCKr8EOQvRW872Oy/az+nLYxg==",
+       "license": "MIT",
+-      "optional": true,
+       "engines": {
+         "node": ">=20.18.1"
+       }
+@@ -2368,7 +2367,8 @@
+       "dependencies": {
+         "jose": "^6.1.0",
+         "openai": "^7.21.0",
+-        "proper-lockfile": "^4.1.2"
++        "proper-lockfile": "^4.1.2",
++        "undici": "7.30.1"
+       },
+       "devDependencies": {
+         "@types/proper-lockfile": "^4.1.4"
+diff --git a/packages/local/package.json b/packages/local/package.json
+index bc4df46..c8764c7 100644
+--- a/packages/local/package.json
++++ b/packages/local/package.json
+@@ -24,7 +24,8 @@
+   "dependencies": {
+     "jose": "^6.1.0",
+     "openai": "^7.21.0",
+-    "proper-lockfile": "^4.1.2"
++    "proper-lockfile": "^4.1.2",
++    "undici": "7.30.1"
+   },
+   "devDependencies": {
+     "@types/proper-lockfile": "^4.1.4"
+diff --git a/packages/local/src/responses.ts b/packages/local/src/responses.ts
+index dd9f6f6..b4058ce 100644
+--- a/packages/local/src/responses.ts
++++ b/packages/local/src/responses.ts
+@@ -1,17 +1,31 @@
++// DuoFlow modification (2026-10-31): multimodal structured inference and complete response receipts.
+ import OpenAI from "openai";
+ import { apiError, ChatGPTError, isObject } from "./errors.js";
+-import type { StreamResponseOptions } from "./types.js";
++import type { StreamResponseOptions, StreamResponseResult } from "./types.js";
+ 
+ export async function streamResponse(
+   accessToken: string,
+   options: StreamResponseOptions,
+   signal: AbortSignal,
+-): Promise<{ text: string }> {
++): Promise<StreamResponseResult> {
+   const input = typeof options.input === "string" ? [{ role: "user" as const, content: options.input }] : options.input;
+   if (!Array.isArray(input) || input.some((message) =>
+-    !isObject(message) || !["user", "assistant", "developer"].includes(String(message.role)) || typeof message.content !== "string"
++    !isObject(message) || !["user", "assistant", "developer"].includes(String(message.role)) ||
++    (typeof message.content !== "string" && !(message.role === "user" && Array.isArray(message.content) &&
++      message.content.length > 0 && message.content.every((part) => isObject(part) &&
++        ((part.type === "input_text" && typeof part.text === "string") ||
++         (part.type === "input_image" && typeof part.image_url === "string" && part.image_url.length > 0 &&
++          (part.detail === undefined || ["auto", "low", "high"].includes(String(part.detail))))))))
+   )) {
+-    throw new ChatGPTError("invalid_request", "Use text messages with user, assistant, or developer roles. Put system guidance in instructions.");
++    throw new ChatGPTError("invalid_request", "Use text messages or user messages containing text and images. Put system guidance in instructions.");
++  }
++  if (options.text !== undefined && (!isObject(options.text) || !isObject(options.text.format) ||
++      options.text.format.type !== "json_schema" || options.text.format.strict !== true ||
++      typeof options.text.format.name !== "string" || !options.text.format.name.trim() || !isObject(options.text.format.schema))) {
++    throw new ChatGPTError("invalid_request", "Use a named strict JSON schema for structured output.");
++  }
++  if (options.reasoning !== undefined && (!isObject(options.reasoning) || options.reasoning.effort !== "low")) {
++    throw new ChatGPTError("invalid_request", "This integration supports low reasoning effort.");
+   }
+ 
+   // The DevKit supplies the selected ChatGPT account's refreshed OAuth token.
+@@ -40,8 +54,13 @@ export async function streamResponse(
+   try {
+     const result = await client.responses.create({
+       model: options.model,
+-      input: input.map((message) => ({ role: message.role, content: message.content })),
++      input: input.map((message) => ({ role: message.role, content: typeof message.content === "string"
++        ? message.content : message.content.map((part) => part.type === "input_image"
++          ? { type: part.type, image_url: part.image_url, detail: part.detail ?? "auto" }
++          : { type: part.type, text: part.text }) })),
+       ...(options.instructions !== undefined ? { instructions: options.instructions } : {}),
++      ...(options.text !== undefined ? { text: options.text } : {}),
++      ...(options.reasoning !== undefined ? { reasoning: options.reasoning } : {}),
+       store: false,
+       stream: true,
+     }, { signal: requestSignal, headers: { accept: "text/event-stream" } }).withResponse();
+@@ -54,7 +73,7 @@ export async function streamResponse(
+       throw new ChatGPTError("invalid_stream", "ChatGPT did not return the expected response stream.", true, response.status);
+     }
+ 
+-    let completed = false;
++    let completedResponse: OpenAI.Responses.Response | undefined;
+     let text = "";
+     for await (const event of result.data) {
+       requestSignal.throwIfAborted();
+@@ -68,15 +87,23 @@ export async function streamResponse(
+         throw apiError(detail, response.status, result.request_id);
+       } else if (event.type === "response.incomplete") {
+         throw new ChatGPTError("response_incomplete", "ChatGPT stopped before completing the response. You can keep the partial text or try again.", true);
++      } else if (event.type === "response.refusal.delta" || event.type === "response.refusal.done") {
++        throw new ChatGPTError("response_refused", "ChatGPT declined this request.");
+       } else if (event.type === "response.completed") {
+-        completed = true;
++        if (!isObject(event.response) || event.response.status !== "completed" || !Array.isArray(event.response.output)) {
++          throw new ChatGPTError("invalid_stream", "ChatGPT did not return a completed response.", true);
++        }
++        if (event.response.output.some((item) => item.type === "message" && item.content.some((part) => part.type === "refusal"))) {
++          throw new ChatGPTError("response_refused", "ChatGPT declined this request.");
++        }
++        completedResponse = event.response;
+         break;
+       }
+     }
+     // The SDK may finish iteration on an aborted connection without throwing.
+     requestSignal.throwIfAborted();
+-    if (!completed) throw new ChatGPTError("stream_interrupted", "The response ended before completion. You can keep the partial text or try again.", true);
+-    return { text };
++    if (!completedResponse) throw new ChatGPTError("stream_interrupted", "The response ended before completion. You can keep the partial text or try again.", true);
++    return { text, response: completedResponse, requestId: result.request_id ?? response.headers.get("x-request-id") };
+   } catch (error) {
+     if (signal.aborted) throw new ChatGPTError("cancelled", "The response was cancelled.");
+     if (error instanceof ChatGPTError) throw error;
+diff --git a/packages/local/src/types.ts b/packages/local/src/types.ts
+index e80f3d2..4fd4e84 100644
+--- a/packages/local/src/types.ts
++++ b/packages/local/src/types.ts
+@@ -1,3 +1,6 @@
++// DuoFlow modification (2026-10-31): multimodal structured inference and complete response receipts.
++import type OpenAI from "openai";
++
+ export interface SessionIdentity {
+   name?: string;
+   email?: string;
+@@ -69,17 +72,28 @@ export interface ChatGPTConfig {
+ 
+ export interface ResponseInputMessage {
+   role: "user" | "assistant" | "developer";
+-  content: string;
++  content: string | Array<
++    { type: "input_text"; text: string } |
++    { type: "input_image"; image_url: string; detail?: "auto" | "low" | "high" }
++  >;
+ }
+ 
+ export interface StreamResponseOptions {
+   model: string;
+   input: string | ResponseInputMessage[];
+   instructions?: string;
++  text?: { format: { type: "json_schema"; name: string; schema: Record<string, unknown>; strict: true } };
++  reasoning?: { effort: "low" };
+   signal?: AbortSignal;
+   onDelta?: (delta: string) => void;
+ }
+ 
++export interface StreamResponseResult {
++  text: string;
++  response: OpenAI.Responses.Response;
++  requestId: string | null;
++}
++
+ export interface SignInOptions {
+   signal?: AbortSignal;
+   /** Register another account instead of reauthorizing the selected profile. */
+@@ -100,7 +114,7 @@ export interface ChatGPTClient {
+   subscribe(listener: (session: SessionState) => void): () => void;
+   /** Sign out of the selected profile. Its registration and identity remain saved. */
+   disconnect(): Promise<void>;
+-  streamResponse(options: StreamResponseOptions): Promise<{ text: string }>;
++  streamResponse(options: StreamResponseOptions): Promise<StreamResponseResult>;
+ }
+ 
+ export interface StoredCredentials {

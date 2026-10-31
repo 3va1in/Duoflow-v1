@@ -1,0 +1,2 @@
+# Unified diff 的空白上下文行只含一个空格，属于补丁格式。
+astra_bridge/patches/*.patch whitespace=-blank-at-eol
