@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
 import { mkdtemp, mkdir, writeFile, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -11,6 +12,14 @@ const body = { model: 'gpt-6-astra', reasoning: { effort: 'low' }, store: false,
   instructions: 'Choose a skill.', input: [{ role: 'user', content: 'test' }],
   text: { format: { type: 'json_schema', name: 'guided_skill_decision', strict: true, schema: {} } } };
 const connected = async () => ({ status: 'connected', sharing: true });
+
+test('CLI 帮助可在未登录、未安装 SDK 时加载全部本地模块', () => {
+  const result = spawnSync(process.execPath, ['astra_bridge/cli.mjs', '--help'], {
+    cwd: new URL('../', import.meta.url), encoding: 'utf8',
+  });
+  assert.equal(result.status, 0, result.stderr);
+  assert.match(result.stdout, /login\|status\|models\|disconnect/);
+});
 
 async function fixture(t) {
   const root = await mkdtemp(join(tmpdir(), 'duoflow-bridge-'));

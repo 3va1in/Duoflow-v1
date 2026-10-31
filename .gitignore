@@ -17,6 +17,7 @@ venv/
 id_rsa*
 id_ed25519*
 credentials*
+!/astra_bridge/credentials.mjs
 secrets*
 auth.json
 session.json
