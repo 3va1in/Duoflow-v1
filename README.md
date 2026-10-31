@@ -22,11 +22,11 @@
 
 ## 新主机下载与控制逻辑检查
 
-发布后，克隆实际目标仓库：
+在新主机上使用有该私有仓库读取权限的 GitHub 账号克隆：
 
 ```bash
-git clone <目标仓库的SSH或HTTPS地址> DuoFlow-Method
-cd DuoFlow-Method
+git clone https://github.com/3va1in/Duoflow-v1.git
+cd Duoflow-v1
 python3.11 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements-control.txt
