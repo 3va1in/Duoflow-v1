@@ -130,6 +130,7 @@ planner = AstraNativeFallbackBackend(
 
 ## 5. 故障与用量
 
+- CLI 失败时输出 JSON，保留命令、SDK 错误码、脱敏说明，以及可用的 HTTP `status`、`requestId`、`param` 和 `responseShape`。若旧版本只显示 `api_error`，先 `git pull --ff-only origin main`；排查时提供错误 JSON，不提供授权链接或登录文件。仅凭 `api_error` 不能判断额度耗尽。
 - 每个请求写入 `requests/<id>.json`，桥保存唯一 `claims/<id>.json`，完成后原子写入 `responses/<id>.json`。响应保留真实 usage 与延迟。
 - 网络、登录、额度、未知错误都会写回错误并停止桥。修正原因后可重启，已经有响应的 ID 不再发送。旧控制器回合已中止，需要由操作者决定新回合。
 - 若有 claim 却无 response，桥报告 `prior_request_outcome_unknown` 并停下；先检查旧进程与原请求结果，不删除 claim 来重发。

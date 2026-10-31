@@ -7,6 +7,9 @@ import { parseArgs } from 'node:util';
 import { credentialEncryption } from './credentials.mjs';
 import { serve } from './bridge.mjs';
 
+let sdkErrorClass;
+let activeCommand = 'startup';
+
 async function main() {
   process.umask(0o077);
   const { values, positionals } = parseArgs({ allowPositionals: true, options: {
@@ -19,6 +22,7 @@ async function main() {
     return;
   }
   if (positionals.length !== 1 || !['login', 'status', 'models', 'disconnect', 'serve'].includes(command)) throw new Error('未知命令');
+  activeCommand = command;
   const port = Number(values.port), maximum = Number(values['max-requests']);
   if (!Number.isInteger(port) || port < 1024 || port > 65535) throw new Error('port 应在 1024–65535');
   if (command === 'serve' && (!isAbsolute(values['request-root'] || '') || !Number.isSafeInteger(maximum) || maximum < 1)) {
@@ -26,7 +30,8 @@ async function main() {
   }
   const repo = resolve(dirname(fileURLToPath(import.meta.url)), '..');
   const sdk = pathToFileURL(join(repo, '.cache/sign-in-with-chatgpt-devkit/packages/local/dist/index.js'));
-  const { createChatGPT } = await import(sdk.href);
+  const { createChatGPT, ChatGPTError } = await import(sdk.href);
+  sdkErrorClass = ChatGPTError;
   const storageDir = join(homedir(), '.config/duoflow-astra');
   const savedAuth = await stat(join(storageDir, 'chatgpt-auth.json')).then(() => true, error => {
     if (error.code === 'ENOENT') return false;
@@ -58,6 +63,9 @@ async function main() {
 }
 
 main().catch(error => {
-  console.error(error.code || error.message);
+  // SDK 的 toJSON 只包含脱敏后的诊断字段，不输出原始响应、请求头或令牌。
+  const details = sdkErrorClass && error instanceof sdkErrorClass
+    ? error.toJSON() : { code: error.code, message: error.message };
+  console.error(JSON.stringify({ command: activeCommand, ...details }, null, 2));
   process.exitCode = 1;
 });

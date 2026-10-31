@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { mkdtemp, mkdir, writeFile, readFile, rm } from 'node:fs/promises';
+import { mkdtemp, mkdir, writeFile, readFile, copyFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { processRequest, requestOptions, serve } from './bridge.mjs';
@@ -19,6 +19,34 @@ test('CLI 帮助可在未登录、未安装 SDK 时加载全部本地模块', ()
   });
   assert.equal(result.status, 0, result.stderr);
   assert.match(result.stdout, /login\|status\|models\|disconnect/);
+});
+
+test('CLI 保留登录 API 错误诊断，不输出原始响应或凭据', async t => {
+  const root = await mkdtemp(join(tmpdir(), 'duoflow-cli-'));
+  t.after(() => rm(root, { recursive: true, force: true }));
+  await mkdir(join(root, 'astra_bridge'));
+  const sdk = join(root, '.cache/sign-in-with-chatgpt-devkit/packages/local');
+  await mkdir(join(sdk, 'dist'), { recursive: true });
+  for (const name of ['cli.mjs', 'bridge.mjs']) {
+    await copyFile(new URL(name, import.meta.url), join(root, 'astra_bridge', name));
+  }
+  await writeFile(join(root, 'astra_bridge/credentials.mjs'), 'export async function credentialEncryption() { return {}; }');
+  const expected = { code: 'api_error', message: 'Safe diagnostic', status: 403,
+    requestId: 'req_test', retryable: false, responseShape: 'undefined' };
+  await writeFile(join(sdk, 'package.json'), '{"type":"module"}');
+  await writeFile(join(sdk, 'dist/index.js'), `
+    export class ChatGPTError extends Error {
+      constructor() { super('Safe diagnostic'); this.rawResponse = 'private-token-sentinel'; }
+      toJSON() { return ${JSON.stringify(expected)}; }
+    }
+    export function createChatGPT() {
+      return { async signIn() { throw new ChatGPTError(); } };
+    }
+  `);
+  const result = spawnSync(process.execPath, ['astra_bridge/cli.mjs', 'login'], { cwd: root, encoding: 'utf8' });
+  assert.equal(result.status, 1);
+  assert.deepEqual(JSON.parse(result.stderr), { command: 'login', ...expected });
+  assert.equal((result.stdout + result.stderr).includes('private-token-sentinel'), false);
 });
 
 async function fixture(t) {
