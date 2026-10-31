@@ -1,0 +1,655 @@
+{
+  "package": "DuoFlow method source for real-robot adaptation",
+  "created": "2026-10-31",
+  "scope": "source only; no robot driver or pretrained weights; no simulator assets",
+  "files": [
+    {
+      "path": "method/actor_conditioning.py",
+      "origin": "full50 latest Astra/native method"
+    },
+    {
+      "path": "method/astra_guided.py",
+      "origin": "full50 latest Astra/native method"
+    },
+    {
+      "path": "method/astra_hierarchy.py",
+      "origin": "full50 latest Astra/native method"
+    },
+    {
+      "path": "method/astra_planner.py",
+      "origin": "full50 latest Astra/native method"
+    },
+    {
+      "path": "method/astra_reentry.py",
+      "origin": "full50 latest Astra/native method"
+    },
+    {
+      "path": "method/atomic_skill_dataset.py",
+      "origin": "full50 latest Astra/native method"
+    },
+    {
+      "path": "method/atomic_skill_executor.py",
+      "origin": "full50 latest Astra/native method"
+    },
+    {
+      "path": "method/atomic_skill_model.py",
+      "origin": "full50 latest Astra/native method"
+    },
+    {
+      "path": "method/bounded_execution.py",
+      "origin": "full50 latest Astra/native method"
+    },
+    {
+      "path": "method/execution_outcomes.py",
+      "origin": "full50 latest Astra/native method"
+    },
+    {
+      "path": "method/experience_memory.py",
+      "origin": "full50 latest Astra/native method"
+    },
+    {
+      "path": "method/harness_editor.py",
+      "origin": "full50 latest Astra/native method"
+    },
+    {
+      "path": "method/harness_evolution.py",
+      "origin": "full50 latest Astra/native method"
+    },
+    {
+      "path": "method/native_atomic.py",
+      "origin": "full50 latest Astra/native method"
+    },
+    {
+      "path": "method/native_factory.py",
+      "origin": "full50 latest Astra/native method"
+    },
+    {
+      "path": "method/native_fallback.py",
+      "origin": "full50 latest Astra/native method"
+    },
+    {
+      "path": "method/outcome_summary.py",
+      "origin": "full50 latest Astra/native method"
+    },
+    {
+      "path": "method/pair_completion.py",
+      "origin": "full50 latest Astra/native method"
+    },
+    {
+      "path": "method/plan_state.py",
+      "origin": "full50 latest Astra/native method"
+    },
+    {
+      "path": "method/reentry_actors.py",
+      "origin": "full50 latest Astra/native method"
+    },
+    {
+      "path": "method/runtime_editor.py",
+      "origin": "full50 latest Astra/native method"
+    },
+    {
+      "path": "method/skill_library.py",
+      "origin": "full50 latest Astra/native method"
+    },
+    {
+      "path": "method/skill_policy.py",
+      "origin": "full50 latest Astra/native method"
+    },
+    {
+      "path": "method/skills.json",
+      "origin": "full50 latest Astra/native method"
+    },
+    {
+      "path": "method/system2_backend.py",
+      "origin": "full50 latest Astra/native method"
+    },
+    {
+      "path": "method/task_recipes.json",
+      "origin": "full50 latest Astra/native method"
+    },
+    {
+      "path": "method/test_astra_guided.py",
+      "origin": "full50 latest Astra/native method"
+    },
+    {
+      "path": "method/test_astra_planner.py",
+      "origin": "full50 latest Astra/native method"
+    },
+    {
+      "path": "method/test_astra_reentry.py",
+      "origin": "full50 latest Astra/native method"
+    },
+    {
+      "path": "method/test_execution_outcomes.py",
+      "origin": "full50 latest Astra/native method"
+    },
+    {
+      "path": "method/test_native_fallback.py",
+      "origin": "full50 latest Astra/native method"
+    },
+    {
+      "path": "method/transition_evidence.py",
+      "origin": "full50 latest Astra/native method"
+    },
+    {
+      "path": "training/train_skills.py",
+      "origin": "new30 skill training"
+    },
+    {
+      "path": "training/train_completion.py",
+      "origin": "new30 skill training"
+    },
+    {
+      "path": "training/skill_model.py",
+      "origin": "new30 skill training"
+    },
+    {
+      "path": "training/skill_dataset.py",
+      "origin": "new30 skill training"
+    },
+    {
+      "path": "training/prepare_training_data.py",
+      "origin": "new30 skill training"
+    },
+    {
+      "path": "training/export_catalog.py",
+      "origin": "new30 skill training"
+    },
+    {
+      "path": "runtime/XPolicyLab/__init__.py",
+      "origin": "XPolicyLab compatibility source"
+    },
+    {
+      "path": "runtime/XPolicyLab/model_template.py",
+      "origin": "XPolicyLab compatibility source"
+    },
+    {
+      "path": "runtime/XPolicyLab/LICENSE",
+      "origin": "XPolicyLab compatibility source"
+    },
+    {
+      "path": "runtime/XPolicyLab/utils/process_data.py",
+      "origin": "XPolicyLab compatibility source"
+    },
+    {
+      "path": "runtime/XPolicyLab/utils/load_file.py",
+      "origin": "XPolicyLab compatibility source"
+    },
+    {
+      "path": "runtime/XPolicyLab/utils/checkpoint_resolver.py",
+      "origin": "XPolicyLab compatibility source"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/__init__.py",
+      "origin": "native policy dependency snapshot 2026-10-19"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/model.py",
+      "origin": "native policy dependency snapshot 2026-10-19"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/runtime.py",
+      "origin": "native policy dependency snapshot 2026-10-19"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/inference.py",
+      "origin": "native policy dependency snapshot 2026-10-19"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/lora_policy.py",
+      "origin": "native policy dependency snapshot 2026-10-19"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/dataset.py",
+      "origin": "native policy dependency snapshot 2026-10-19"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/train_base.py",
+      "origin": "native policy dependency snapshot 2026-10-19"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/LICENSE",
+      "origin": "native policy dependency snapshot 2026-10-19"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/requirements.txt",
+      "origin": "native policy dependency snapshot 2026-10-19"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/ASSET_SOURCES.json",
+      "origin": "native policy dependency snapshot 2026-10-19"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/LICENSE",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/acceleration/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/acceleration/communications.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/acceleration/parallel_states.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/exports/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/exports/transformer_engine/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/exports/transformer_engine/convert_model.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/models/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/models/diffusion/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/models/diffusion/cosmos2_5/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/models/diffusion/cosmos2_5/controlnet_cosmos2_5.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/models/diffusion/cosmos2_5/multicontrolnet_cosmos2_5.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/models/diffusion/cosmos2_5/text_encoder.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/models/diffusion/cosmos2_5/transformer_cosmos2_5.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/models/diffusion/giga_world_0/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/models/diffusion/giga_world_0/modules.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/models/diffusion/giga_world_0/neighborhood_attn.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/models/diffusion/giga_world_0/t5_text_encoder.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/models/diffusion/giga_world_0/transformer_giga_world_0.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/models/diffusion/lora/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/models/diffusion/lora/lora_peft.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/models/vla/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/models/vla/giga_brain_0/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/models/vla/giga_brain_0/modeling_giga_brain_0.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/models/vla/giga_brain_0/paligemma2_with_expert.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/models/vla/giga_brain_0/paligemma_with_expert.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/models/vla/giga_brain_0/triton/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/models/vla/giga_brain_0/triton/shared_triton_utils.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/models/vla/giga_brain_0/triton/triton_conversion.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/models/vla/giga_brain_0/triton/triton_giga_brain_0.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/models/vla/giga_brain_0/triton/triton_utils.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/models/vla/pi0/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/models/vla/pi0/modeling_pi0.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/models/vla/pi0/paligemma_with_expert.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/nn/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/nn/losses/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/nn/losses/edm_loss.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/nn/modules/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/nn/modules/attention.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/diffusion/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/diffusion/cosmos2_5/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/diffusion/cosmos2_5/pipeline_cosmos2_5.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/diffusion/giga_world_0/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/diffusion/giga_world_0/pipeline_giga_world_0.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/pipeline.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vision/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vision/depth_estimation/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vision/depth_estimation/pipeline_depth_anything.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vision/depth_estimation/pipeline_dpt.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vision/detection/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vision/detection/pipeline_grounding_dino.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vision/edge_detection/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vision/edge_detection/pipeline_canny.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vision/edge_detection/pipeline_hed.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vision/edge_detection/pipeline_lineart.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vision/edge_detection/pipeline_mlsd.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vision/edge_detection/pipeline_pidinet.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vision/frame_interpolation/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vision/frame_interpolation/pipeline_film.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vision/image_restoration/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vision/image_restoration/pipeline_prompt_ir.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vision/keypoints/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vision/keypoints/pipeline_openpose.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vision/keypoints/pipeline_rtm_pose.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vision/optical_flow/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vision/optical_flow/pipeline_unimatch.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vision/segmentation/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vision/segmentation/palette.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vision/segmentation/pipeline_grounded_sam2.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vision/segmentation/pipeline_segment_anything.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vision/segmentation/pipeline_upernet.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vision/segmentation/sam2_utils.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vision/shot_boundary_detection/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vision/shot_boundary_detection/pipeline_transnetv2.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vla/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vla/giga_brain_0/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vla/giga_brain_0/giga_brain_0_utils.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vla/giga_brain_0/pipeline_giga_brain_0.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vla/pi0/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vla/pi0/pi0_utils.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/pipelines/vla/pi0/pipeline_pi0.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/schedulers/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/schedulers/scheduling_edm_res_multistep.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/schedulers/scheduling_flow_unipc_multistep.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/sockets/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/sockets/client.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/sockets/server.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/utils/__init__.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/utils/action_horizon.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/utils/apply_slice.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/utils/download.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/utils/flops_count.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/utils/parameter_count.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/utils/paths.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/utils/prompt.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/giga_models/utils/utils.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/pyproject.toml",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/requirements.txt",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/backbone_lib/setup.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/native_release/LICENSE",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/native_release/requirements.txt",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/XPolicyLab/policy/TwinTimeFM/vendor/native_release/scripts/inference/inference_agilex_server_unified.py",
+      "origin": "native third-party source; licenses retained"
+    },
+    {
+      "path": "runtime/env_cfg/arx_x5.yml",
+      "origin": "legacy dimension registry; not a real-robot configuration"
+    },
+    {
+      "path": "runtime/env_cfg/aloha_agilex.yml",
+      "origin": "legacy dimension registry; not a real-robot configuration"
+    },
+    {
+      "path": "runtime/env_cfg/robot/_robot_info.json",
+      "origin": "legacy dimension registry; not a real-robot configuration"
+    },
+    {
+      "path": "method/paired_scenes.py",
+      "origin": "full50 measurement helper required by existing error-classification tests"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+# PyTorch/torchvision 按新主机 CUDA 环境单独安装。
+-r runtime/XPolicyLab/policy/TwinTimeFM/requirements.txt
+h5py==3.12.1
+opencv-python-headless<4.12
