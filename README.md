@@ -4,6 +4,8 @@
 
 当前交付包含**方法源码和独立 Astra 登录桥**。机器人驱动、真机数据转换及真机权重仍需根据实验设备配置；克隆仓库不会直接启动机器人。
 
+已加入**仿真技能权重包**：原 20 任务与新增 30 任务两套技能 LoRA、匹配完成头、329 张技能卡，以及 native 动作权重和本地选择器。更新及基础模型下载命令见 [仿真权重迁移](docs/SIMULATION_WEIGHTS.md)。
+
 RTX 5090 / Ubuntu 20.04 的环境安装与本账号 ChatGPT 计划用量接入，见 [逐步安装说明](docs/UBUNTU_5090_ASTRA.md)。该配置使用 Python 3.11 和 PyTorch 2.7.1 cu128。
 
 ## 代码结构
@@ -69,7 +71,7 @@ python training/export_catalog.py --help
 
 ## GitHub 与模型文件
 
-GitHub 保存代码、文档和配置模板。基础模型、native/skill 权重、完成头、训练记忆及真机采集数据通过独立存储迁移，并在本机配置引用位置。`.gitignore` 已排除这些文件和常见凭据文件。
+GitHub 保存代码、文档、配置和 `pretrained/simulation/` 下明确列出的仿真推理权重。`git pull` 会取回这组约 55.2 MB 的文件。第三方基础大模型由 `scripts/download_base.py` 从固定版本下载。训练记忆、真机采集数据、其他模型和凭据仍由 `.gitignore` 排除。
 
 Astra 客户端与 `astra_bridge/` 独立服务端随仓库提供，使用官方 Sign in with ChatGPT 取得本账号授权；新主机可以独立运行，不依赖旧 Mac。现有 guided 路线保持 `siwc_files` 协议，登录、安装和启动命令见 [Ubuntu / Astra 接入](docs/UBUNTU_5090_ASTRA.md)。桥不包含或读取旧实验的账号凭据、目录和预算。
 

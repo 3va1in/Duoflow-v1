@@ -1,0 +1,29 @@
+{
+  "task": "open_microwave",
+  "native_stage_spec": {
+    "stages": [
+      {
+        "skill_id": "grasp_door_handle",
+        "bindings": {
+          "object": "the microwave door handle"
+        },
+        "arm_relation": "same_object"
+      },
+      {
+        "skill_id": "swing_door_open",
+        "bindings": {
+          "object": "the microwave door"
+        },
+        "arm_relation": "same_object"
+      }
+    ]
+  },
+  "actor_bank": "original20_frozen",
+  "source": "first accepted TRAIN episode, ordered expert skill segments; catalog-available prefix only",
+  "available_stage_count": 2,
+  "training_reference_stage_count": 2,
+  "coverage": "catalog_stage_chain",
+  "first_unavailable_stage": null,
+  "whole_task_tail_logged_separately": true,
+  "evaluation_data_used": false
+}

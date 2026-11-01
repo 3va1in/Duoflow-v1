@@ -1,0 +1,37 @@
+{
+  "task": "scan_object",
+  "native_stage_spec": {
+    "stages": [
+      {
+        "skill_id": "grasp_and_lift_pair",
+        "bindings": {
+          "object": "the scanner"
+        },
+        "arm_relation": "same_object"
+      },
+      {
+        "skill_id": "present_object_for_scan",
+        "bindings": {
+          "object": "the tea box"
+        },
+        "arm_relation": "same_object"
+      },
+      {
+        "skill_id": "align_scanner_ray",
+        "bindings": {
+          "object": "the scanner"
+        },
+        "arm_relation": "same_object"
+      }
+    ]
+  },
+  "actor_bank": "new30_frozen",
+  "source": "first successful train episode and trained catalog",
+  "evaluation_data_used": false,
+  "training_reference_stage_count": 3,
+  "available_stage_count": 3,
+  "coverage": "catalog_stage_chain",
+  "first_unavailable_stage": null,
+  "whole_task_tail_logged_separately": true,
+  "completion_head": "current_RGB_qpos_condition_not_pair_head"
+}

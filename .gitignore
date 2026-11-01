@@ -43,3 +43,10 @@ audit/
 *.mp4
 *.avi
 *.zip
+# 仅发布这组已整理的仿真推理权重；其他模型和采集数据仍保持忽略。
+!/pretrained/simulation/old20/skill_checkpoint.pt
+!/pretrained/simulation/old20/completion_checkpoint.pt
+!/pretrained/simulation/new30/skill_checkpoint.pt
+!/pretrained/simulation/new30/completion_checkpoint.pt
+!/pretrained/simulation/native/selector.pt
+!/pretrained/simulation/native/twintimefm_adapter.safetensors

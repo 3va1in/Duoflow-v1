@@ -1,0 +1,36 @@
+{
+  "task": "place_bread_skillet",
+  "native_stage_spec": {
+    "stages": [
+      {
+        "skill_id": "grasp_and_lift_bread_skillet",
+        "bindings": {
+          "object": "skillet"
+        },
+        "arm_relation": "same_object"
+      },
+      {
+        "skill_id": "present_skillet",
+        "bindings": {
+          "object": "skillet"
+        },
+        "arm_relation": "same_object"
+      },
+      {
+        "skill_id": "place_bread_on_skillet",
+        "bindings": {
+          "object": "bread"
+        },
+        "arm_relation": "same_object"
+      }
+    ]
+  },
+  "actor_bank": "original20_frozen",
+  "source": "first accepted TRAIN episode, ordered expert skill segments; catalog-available prefix only",
+  "available_stage_count": 3,
+  "training_reference_stage_count": 3,
+  "coverage": "catalog_stage_chain",
+  "first_unavailable_stage": null,
+  "whole_task_tail_logged_separately": true,
+  "evaluation_data_used": false
+}

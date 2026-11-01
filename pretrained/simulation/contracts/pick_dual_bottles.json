@@ -1,0 +1,6 @@
+{
+  "task": "pick_dual_bottles",
+  "native_stage_spec": null,
+  "actor_bank": "original20_frozen",
+  "source": "declared frozen STAGES; original four unchanged"
+}

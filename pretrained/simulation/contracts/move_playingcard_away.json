@@ -1,0 +1,29 @@
+{
+  "task": "move_playingcard_away",
+  "native_stage_spec": {
+    "stages": [
+      {
+        "skill_id": "grasp_cards",
+        "bindings": {
+          "object": "playingcards"
+        },
+        "arm_relation": "same_object"
+      },
+      {
+        "skill_id": "move_cards_outward",
+        "bindings": {
+          "object": "playingcards"
+        },
+        "arm_relation": "same_object"
+      }
+    ]
+  },
+  "actor_bank": "original20_frozen",
+  "source": "first accepted TRAIN episode, ordered expert skill segments; catalog-available prefix only",
+  "available_stage_count": 2,
+  "training_reference_stage_count": 3,
+  "coverage": "trained_prefix",
+  "first_unavailable_stage": "release_cards",
+  "whole_task_tail_logged_separately": true,
+  "evaluation_data_used": false
+}

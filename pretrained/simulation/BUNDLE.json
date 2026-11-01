@@ -1,0 +1,394 @@
+{
+  "format": "duoflow_simulation_bundle_v1",
+  "source_run": "full50_routes_20261028",
+  "embodiment": "Aloha-AgileX simulation; not AIRBOT calibration",
+  "banks": {
+    "old20": {
+      "actor": "old20/skill_checkpoint.pt",
+      "completion": "old20/completion_checkpoint.pt",
+      "catalog": "old20/skill_catalog.json",
+      "tasks": [
+        "adjust_bottle",
+        "beat_block_hammer",
+        "click_bell",
+        "dump_bin_bigbin",
+        "handover_block",
+        "handover_mic",
+        "hanging_mug",
+        "lift_pot",
+        "move_playingcard_away",
+        "open_microwave",
+        "pick_dual_bottles",
+        "place_bread_skillet",
+        "place_can_basket",
+        "place_object_basket",
+        "place_shoe",
+        "press_stapler",
+        "put_object_cabinet",
+        "rotate_qrcode",
+        "stack_blocks_two",
+        "stack_bowls_three"
+      ],
+      "task_count": 20,
+      "card_count": 110,
+      "trained_condition_count": 112,
+      "actor_updates": 5000,
+      "completion_selected_epoch": 24,
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      }
+    },
+    "new30": {
+      "actor": "new30/skill_checkpoint.pt",
+      "completion": "new30/completion_checkpoint.pt",
+      "catalog": "new30/skill_catalog.json",
+      "tasks": [
+        "blocks_ranking_rgb",
+        "blocks_ranking_size",
+        "click_alarmclock",
+        "grab_roller",
+        "move_can_pot",
+        "move_pillbottle_pad",
+        "move_stapler_pad",
+        "open_laptop",
+        "pick_diverse_bottles",
+        "place_a2b_left",
+        "place_a2b_right",
+        "place_bread_basket",
+        "place_burger_fries",
+        "place_cans_plasticbox",
+        "place_container_plate",
+        "place_dual_shoes",
+        "place_empty_cup",
+        "place_fan",
+        "place_mouse_pad",
+        "place_object_scale",
+        "place_object_stand",
+        "place_phone_stand",
+        "put_bottles_dustbin",
+        "scan_object",
+        "shake_bottle",
+        "shake_bottle_horizontally",
+        "stack_blocks_three",
+        "stack_bowls_two",
+        "stamp_seal",
+        "turn_switch"
+      ],
+      "task_count": 30,
+      "card_count": 219,
+      "trained_condition_count": 206,
+      "actor_updates": 5000,
+      "completion_selected_epoch": 21,
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      }
+    }
+  },
+  "task_to_bank": {
+    "adjust_bottle": "old20",
+    "beat_block_hammer": "old20",
+    "click_bell": "old20",
+    "dump_bin_bigbin": "old20",
+    "handover_block": "old20",
+    "handover_mic": "old20",
+    "hanging_mug": "old20",
+    "lift_pot": "old20",
+    "move_playingcard_away": "old20",
+    "open_microwave": "old20",
+    "pick_dual_bottles": "old20",
+    "place_bread_skillet": "old20",
+    "place_can_basket": "old20",
+    "place_object_basket": "old20",
+    "place_shoe": "old20",
+    "press_stapler": "old20",
+    "put_object_cabinet": "old20",
+    "rotate_qrcode": "old20",
+    "stack_blocks_two": "old20",
+    "stack_bowls_three": "old20",
+    "blocks_ranking_rgb": "new30",
+    "blocks_ranking_size": "new30",
+    "click_alarmclock": "new30",
+    "grab_roller": "new30",
+    "move_can_pot": "new30",
+    "move_pillbottle_pad": "new30",
+    "move_stapler_pad": "new30",
+    "open_laptop": "new30",
+    "pick_diverse_bottles": "new30",
+    "place_a2b_left": "new30",
+    "place_a2b_right": "new30",
+    "place_bread_basket": "new30",
+    "place_burger_fries": "new30",
+    "place_cans_plasticbox": "new30",
+    "place_container_plate": "new30",
+    "place_dual_shoes": "new30",
+    "place_empty_cup": "new30",
+    "place_fan": "new30",
+    "place_mouse_pad": "new30",
+    "place_object_scale": "new30",
+    "place_object_stand": "new30",
+    "place_phone_stand": "new30",
+    "put_bottles_dustbin": "new30",
+    "scan_object": "new30",
+    "shake_bottle": "new30",
+    "shake_bottle_horizontally": "new30",
+    "stack_blocks_three": "new30",
+    "stack_bowls_two": "new30",
+    "stamp_seal": "new30",
+    "turn_switch": "new30"
+  },
+  "native": {
+    "adapter": "native/twintimefm_adapter.safetensors",
+    "selector": "native/selector.pt",
+    "runtime_editor": "native/runtime_editor.json"
+  },
+  "base_sources": "runtime/XPolicyLab/policy/TwinTimeFM/ASSET_SOURCES.json",
+  "base_weights_included": false,
+  "raw_demonstrations_included": false,
+  "frozen_experience_memory_included": false,
+  "real_robot_ready": false,
+  "metadata_changes": "Training paths and non-inference logs omitted; all retained tensors unchanged.",
+  "files": {
+    "contracts/adjust_bottle.json": {
+      "bytes": 159,
+      "sha256": "ee43f261e573c7a03feb9561cface83148d15b787fc16277ad993f0803d18306"
+    },
+    "contracts/beat_block_hammer.json": {
+      "bytes": 163,
+      "sha256": "e8b75199ca91dbaae3f538c0f4ed5828ed900983e9ac0c175b454baed6a20dc5"
+    },
+    "contracts/blocks_ranking_rgb.json": {
+      "bytes": 1920,
+      "sha256": "64ffa715d71e5227231ec734db145699d5c4a4e4a12bcc456a5ef3c70b1f67f1"
+    },
+    "contracts/blocks_ranking_size.json": {
+      "bytes": 1933,
+      "sha256": "314736e2a536f37f2900b016625efe19afcecab526f9b0f653ebc3031d1a784c"
+    },
+    "contracts/click_alarmclock.json": {
+      "bytes": 975,
+      "sha256": "991fab21b089a74375ddd98ac2da28c9a105e80b7634711e0fe1edc351751daf"
+    },
+    "contracts/click_bell.json": {
+      "bytes": 156,
+      "sha256": "db8201e77a701724e99ed4f383a1c0d8c4d239e3eaa3301e4a7dca2c2612f221"
+    },
+    "contracts/dump_bin_bigbin.json": {
+      "bytes": 635,
+      "sha256": "10f3a0a759a6ada800ca908c092b71b9e7d16c184b4b2eb6642e5af0eeaf974a"
+    },
+    "contracts/grab_roller.json": {
+      "bytes": 771,
+      "sha256": "7ba36093f84af6876a5117ed72d6d96a5f269f4676d484f44e71f7d87a37e4d4"
+    },
+    "contracts/handover_block.json": {
+      "bytes": 772,
+      "sha256": "e297b27cedde5c320a5e6cbe3bf0cbadceb75dd44c670fab4c44453c8e6f7cd4"
+    },
+    "contracts/handover_mic.json": {
+      "bytes": 158,
+      "sha256": "062e4fb6d15c8e1fdac97e05316f0743df463d006ebaa7c23b6ae9e587e0a0ab"
+    },
+    "contracts/hanging_mug.json": {
+      "bytes": 1031,
+      "sha256": "e515add3e41f79da45ce9776d9bb7684bd89b0548d6ebb1cefb32e45813352a2"
+    },
+    "contracts/lift_pot.json": {
+      "bytes": 154,
+      "sha256": "5bdb7bbba2cc1749116f146d32f24a32b0299df2ae48a1938bf3b39b16496066"
+    },
+    "contracts/move_can_pot.json": {
+      "bytes": 788,
+      "sha256": "1e81bb1aa8269025f0f64a2218f455a876b73e6534162c305c97fc455ce95882"
+    },
+    "contracts/move_pillbottle_pad.json": {
+      "bytes": 799,
+      "sha256": "b0f882caaf270fb3a0f5339328f8bb139e84830ee06b5dfbe376fed597bc30ce"
+    },
+    "contracts/move_playingcard_away.json": {
+      "bytes": 780,
+      "sha256": "faed09222e4efbef580971fbcb2afd0a69bd681d20d05fec402e50b674312564"
+    },
+    "contracts/move_stapler_pad.json": {
+      "bytes": 788,
+      "sha256": "472ad85cf894ba086d7b90380f95381a06f78179acb3e290ff2e327fe5b99016"
+    },
+    "contracts/open_laptop.json": {
+      "bytes": 791,
+      "sha256": "47c9323ee2720803e9a3f7eebf47cf4e2d0fcd02cb36bab03aa6239686c9614d"
+    },
+    "contracts/open_microwave.json": {
+      "bytes": 789,
+      "sha256": "ae1f02715d844d3c434dc6d0f72214f3011156b2dd4846ad5eea08fb21ac3b2e"
+    },
+    "contracts/pick_diverse_bottles.json": {
+      "bytes": 829,
+      "sha256": "700572c97297d56d7ec362600fe78dfd59263586852cdcebe2eebe7c5c192137"
+    },
+    "contracts/pick_dual_bottles.json": {
+      "bytes": 163,
+      "sha256": "d92a9cbc28a618e27bec48e34a4e4051b5d71b99af05edc908ba70b4385abcbc"
+    },
+    "contracts/place_a2b_left.json": {
+      "bytes": 800,
+      "sha256": "0e042a421c179a4b70a64c7f913dbb87dac43e6c0303b8d65a89b65b425908f1"
+    },
+    "contracts/place_a2b_right.json": {
+      "bytes": 801,
+      "sha256": "41dfd67df5d65442d8ea2ba49fe798d77c2bfd65c958665d3ddaab290bef2cdd"
+    },
+    "contracts/place_bread_basket.json": {
+      "bytes": 711,
+      "sha256": "b2dba1d5c04db58522833c4347651cc32d7190c41081181384359530ab86e40c"
+    },
+    "contracts/place_bread_skillet.json": {
+      "bytes": 938,
+      "sha256": "851640cd4d879d2cc4494dfbae94e7ef76ef7f195f88c7a5bf90f1ffb835eb03"
+    },
+    "contracts/place_burger_fries.json": {
+      "bytes": 1281,
+      "sha256": "12df341c4bf7e4d7da43ac60f1178932fb3597c77402722eb471488a035a34c5"
+    },
+    "contracts/place_can_basket.json": {
+      "bytes": 1086,
+      "sha256": "46c9573ef14ab3de8a88189dd9c0d8e3a3f16ba7ef85ff0e8e085057b8f469cc"
+    },
+    "contracts/place_cans_plasticbox.json": {
+      "bytes": 1275,
+      "sha256": "df71a9d1b901fb1f66908cc676445637bab7d741d85d0a9fb945313bc550a0e2"
+    },
+    "contracts/place_container_plate.json": {
+      "bytes": 952,
+      "sha256": "40838391661d0590e5618fd8b80957c5db35dbf62f6030e9183114457f220ba2"
+    },
+    "contracts/place_dual_shoes.json": {
+      "bytes": 964,
+      "sha256": "94a4dde9f46f69fdf8212916ed44397d1bd2c3d477b112e87d37850fa45b0d38"
+    },
+    "contracts/place_empty_cup.json": {
+      "bytes": 946,
+      "sha256": "a0080c89f325ecf219bf1b1c54b8770e9958b4ebba2c2f60767e4fd6c12a9441"
+    },
+    "contracts/place_fan.json": {
+      "bytes": 773,
+      "sha256": "0e4b45e232e57abe2345e700b359379f3d3b1ef8c3448fe4641486289936e556"
+    },
+    "contracts/place_mouse_pad.json": {
+      "bytes": 801,
+      "sha256": "99a7413cd5a586aa913cb1b550467c9b6b1cb9bf0e1e36b22408233c996c3462"
+    },
+    "contracts/place_object_basket.json": {
+      "bytes": 1143,
+      "sha256": "10cedf1a75fc48bb4627bae350d926e81637275c77080345666324f8c15c5752"
+    },
+    "contracts/place_object_scale.json": {
+      "bytes": 788,
+      "sha256": "6865a76e5ce377ade69a7e7a0e149fde5a6008aec5e8f0a1ba3ee0d04645bd5e"
+    },
+    "contracts/place_object_stand.json": {
+      "bytes": 788,
+      "sha256": "dbaf2d7f5ef0afdff95233902de594ef086271e5915a3fd5e0e1a5c751a682c9"
+    },
+    "contracts/place_phone_stand.json": {
+      "bytes": 784,
+      "sha256": "3a3397c9080415c1b2a946eedea327924f53f5155a90ec339e5f3c60a2364cfa"
+    },
+    "contracts/place_shoe.json": {
+      "bytes": 613,
+      "sha256": "9f679d04f9aa30cea8d7c56f1e537ef1ce841feeb4ae692894b5a176c77bb8e4"
+    },
+    "contracts/press_stapler.json": {
+      "bytes": 159,
+      "sha256": "5a21a656283b7bea1fb28f4f2bcad3382066909524d180c57211d5a1f03ff74a"
+    },
+    "contracts/put_bottles_dustbin.json": {
+      "bytes": 703,
+      "sha256": "d57acbf5d827b28a409a7003226fc473f92ca7023951986ac08a3e03e2084e0d"
+    },
+    "contracts/put_object_cabinet.json": {
+      "bytes": 1251,
+      "sha256": "9b39c6ff06367d02147100235a9446a50da687d16721c8c9408ba1c6eafdde2a"
+    },
+    "contracts/rotate_qrcode.json": {
+      "bytes": 159,
+      "sha256": "56f366d7e08818717e86888b98b4fdb9527de6dc63c6e7735eee15f9be5103b4"
+    },
+    "contracts/scan_object.json": {
+      "bytes": 958,
+      "sha256": "566f41217fd35cb63d8ea7ffed287babbcd7b3e29606e6fbc49a67c74b62dcf1"
+    },
+    "contracts/shake_bottle.json": {
+      "bytes": 1731,
+      "sha256": "08056b26cb56c36b978e09ab7afcf34e19b63c04f02a3ac1a00b481613f7c4b9"
+    },
+    "contracts/shake_bottle_horizontally.json": {
+      "bytes": 1918,
+      "sha256": "a6a6a9bd0ea151aef8d16fd315133c40053f5e809bfe7016bdf8a1813f70bbb7"
+    },
+    "contracts/stack_blocks_three.json": {
+      "bytes": 1920,
+      "sha256": "d97a5b116b39ea71a9d139484c74219295f9c2b1d8d4ddd39321f6943665d5d9"
+    },
+    "contracts/stack_blocks_two.json": {
+      "bytes": 630,
+      "sha256": "0ed569f00a33897ae53bffa61b634be1f8992fc049254e50e46d030e98b04537"
+    },
+    "contracts/stack_bowls_three.json": {
+      "bytes": 2040,
+      "sha256": "77c7c304420e30ad687ad5a22efaaa749a91c3894ebd776a91f1de5f1c9f2395"
+    },
+    "contracts/stack_bowls_two.json": {
+      "bytes": 1532,
+      "sha256": "fb21d3798cc932a579b1f08b4c18b208e26ec3bf9b8e87214da1f2026099ce6b"
+    },
+    "contracts/stamp_seal.json": {
+      "bytes": 776,
+      "sha256": "61740ad9fc58c3840bff050319a0bb6b96836a06c50ee19a8a272c855a1b5247"
+    },
+    "contracts/turn_switch.json": {
+      "bytes": 784,
+      "sha256": "dfe01fc02238f06d116aca981db960dcb7d80884013e1fba5c3a52fd6887deb5"
+    },
+    "native/runtime_editor.json": {
+      "bytes": 108945,
+      "sha256": "da76013b47db73e3e94a3115015796d3127063e05083d5bd1697d9296bf22efb"
+    },
+    "native/selector.pt": {
+      "bytes": 4748620,
+      "sha256": "49458f48198917346f584660bc68b6444417cec25bf843c35f33ef3359691876"
+    },
+    "native/twintimefm_adapter.safetensors": {
+      "bytes": 16233136,
+      "sha256": "58e412a4acfdd2fae79f05197cc8288e069d5dfcda1ba8bec54d5917be8ee8f1"
+    },
+    "new30/completion_checkpoint.pt": {
+      "bytes": 276231,
+      "sha256": "33c6b6f59b73b80904e8148e96cc3ae1a2e5da65c93b85d316f73f99abc7ede2"
+    },
+    "new30/skill_catalog.json": {
+      "bytes": 263578,
+      "sha256": "67e48b8c58c7dfa4028810265066d7e3257d9b5f0b962f2ff0d86cba6a4bfe48"
+    },
+    "new30/skill_checkpoint.pt": {
+      "bytes": 16588375,
+      "sha256": "723eed420b021aaaf53c72fcb387fe4124b0dec6eff8b0209f84c6b2445e96c8"
+    },
+    "norm_stats.json": {
+      "bytes": 3363,
+      "sha256": "5b609d8edb6490f8104459f68ba05e58ebf28909effa2b82d298c73a6a817d7c"
+    },
+    "old20/completion_checkpoint.pt": {
+      "bytes": 252103,
+      "sha256": "affb79ceab49dc72efea363cee4cc3af098ce2d330e331e5729bc19adab6343c"
+    },
+    "old20/skill_catalog.json": {
+      "bytes": 130587,
+      "sha256": "70cacc5190e5a655eb92b0ee952ad42ff076a4dd3070b8d78265415f28dbd642"
+    },
+    "old20/skill_checkpoint.pt": {
+      "bytes": 16564759,
+      "sha256": "418c964ae8f0c19510c2ceff52b049a344bf03b9cbbea3d7719ee750fd10a828"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "task": "hanging_mug",
+  "native_stage_spec": {
+    "stages": [
+      {
+        "skill_id": "pick_and_lift",
+        "bindings": {
+          "object": "the mug"
+        },
+        "arm_relation": "left"
+      },
+      {
+        "skill_id": "place_at_center",
+        "bindings": {
+          "object": "the mug"
+        },
+        "arm_relation": "left"
+      },
+      {
+        "skill_id": "retreat",
+        "bindings": {
+          "object": "the mug"
+        },
+        "arm_relation": "left"
+      },
+      {
+        "skill_id": "pick_and_lift",
+        "bindings": {
+          "object": "the mug"
+        },
+        "arm_relation": "right"
+      }
+    ]
+  },
+  "actor_bank": "original20_frozen",
+  "source": "first accepted TRAIN episode, ordered expert skill segments; catalog-available prefix only",
+  "available_stage_count": 4,
+  "training_reference_stage_count": 6,
+  "coverage": "trained_prefix",
+  "first_unavailable_stage": "hang_mug",
+  "whole_task_tail_logged_separately": true,
+  "evaluation_data_used": false
+}

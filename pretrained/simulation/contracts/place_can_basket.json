@@ -1,0 +1,43 @@
+{
+  "task": "place_can_basket",
+  "native_stage_spec": {
+    "stages": [
+      {
+        "skill_id": "grasp_can",
+        "bindings": {
+          "object": "the can"
+        },
+        "arm_relation": "same_object"
+      },
+      {
+        "skill_id": "insert_and_release_in_basket",
+        "bindings": {
+          "object": "the can"
+        },
+        "arm_relation": "same_object"
+      },
+      {
+        "skill_id": "grasp_loaded_basket",
+        "bindings": {
+          "object": "basket"
+        },
+        "arm_relation": "same_object"
+      },
+      {
+        "skill_id": "lift_loaded_basket",
+        "bindings": {
+          "object": "basket"
+        },
+        "arm_relation": "same_object"
+      }
+    ]
+  },
+  "actor_bank": "original20_frozen",
+  "source": "first accepted TRAIN episode, ordered expert skill segments; catalog-available prefix only",
+  "available_stage_count": 4,
+  "training_reference_stage_count": 4,
+  "coverage": "catalog_stage_chain",
+  "first_unavailable_stage": null,
+  "whole_task_tail_logged_separately": true,
+  "evaluation_data_used": false
+}

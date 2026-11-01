@@ -1,0 +1,2798 @@
+{
+  "format": "duoflow_atomic_skill_catalog_v1",
+  "policy_structure": "shared skill-conditioned action LoRA; explicit skill and object/arm binding",
+  "observation_inputs": [
+    "cam_high",
+    "cam_left_wrist",
+    "cam_right_wrist",
+    "state14"
+  ],
+  "planner_contract": "Choose a listed card and call it without changing its skill_text or bindings. Wait for its execution result before requesting another skill.",
+  "no_oracle_inputs": true,
+  "stop_config": {
+    "threshold": 0.9,
+    "consecutive_observations": 2
+  },
+  "trained_condition_count": 112,
+  "exported_condition_count": 102,
+  "unexported_conditions_without_valid_action_segments": [
+    "align_and_release_shoe|Align the held shoe with the blue target area, place it there, and open the left gripper.",
+    "align_and_release_shoe|Align the held shoe with the blue target area, place it there, and open the right gripper.",
+    "hang_mug|Guide the mug handle onto the rack peg with the right arm and release the mug.",
+    "place_and_release_block|Place the green block on the red block with the left arm and release it.",
+    "place_and_release_block|Place the green block on the red block with the right arm and release it.",
+    "place_and_release_block|Place the red block on the center of the table with the left arm and release it.",
+    "place_and_release_block|Place the red block on the center of the table with the right arm and release it.",
+    "place_on_pad|Place the long block on the blue target pad with the right arm and release it.",
+    "release_cards|Open the left gripper to release the playing-card box at the outer table area.",
+    "release_cards|Open the right gripper to release the playing-card box at the outer table area."
+  ],
+  "skills": [
+    {
+      "id": "atomic_002",
+      "condition_index": 2,
+      "condition_key": "approach_bell|Position the closed left gripper just above the top button of the bell.",
+      "skill_id": "approach_bell",
+      "skill_text": "Position the closed left gripper just above the top button of the bell.",
+      "bindings": {
+        "object": "the bell",
+        "arm": "left",
+        "destination": ""
+      },
+      "task": "click_bell",
+      "max_policy_steps": 200,
+      "precondition": "The top of the bell is reachable.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_003",
+      "condition_index": 3,
+      "condition_key": "approach_bell|Position the closed right gripper just above the top button of the bell.",
+      "skill_id": "approach_bell",
+      "skill_text": "Position the closed right gripper just above the top button of the bell.",
+      "bindings": {
+        "object": "the bell",
+        "arm": "right",
+        "destination": ""
+      },
+      "task": "click_bell",
+      "max_policy_steps": 200,
+      "precondition": "The top of the bell is reachable.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_004",
+      "condition_index": 4,
+      "condition_key": "bimanual_grasp|Grasp the left and right handles of the pot with the corresponding arms.",
+      "skill_id": "bimanual_grasp",
+      "skill_text": "Grasp the left and right handles of the pot with the corresponding arms.",
+      "bindings": {
+        "object": "the pot",
+        "arm": "both",
+        "destination": ""
+      },
+      "task": "lift_pot",
+      "max_policy_steps": 250,
+      "precondition": "Both handles are reachable and both grippers are free.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_005",
+      "condition_index": 5,
+      "condition_key": "bimanual_lift|Lift the pot upward with both arms while keeping it upright.",
+      "skill_id": "bimanual_lift",
+      "skill_text": "Lift the pot upward with both arms while keeping it upright.",
+      "bindings": {
+        "object": "the pot",
+        "arm": "both",
+        "destination": ""
+      },
+      "task": "lift_pot",
+      "max_policy_steps": 200,
+      "precondition": "Both pot handles are grasped.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_006",
+      "condition_index": 6,
+      "condition_key": "bring_bottles_to_center|Bring both held bottles to the central area while keeping both grippers closed.",
+      "skill_id": "bring_bottles_to_center",
+      "skill_text": "Bring both held bottles to the central area while keeping both grippers closed.",
+      "bindings": {
+        "object": "the left bottle",
+        "arm": "left",
+        "destination": "the central area",
+        "secondary_object": "the right bottle",
+        "secondary_arm": "right"
+      },
+      "task": "pick_dual_bottles",
+      "max_policy_steps": 240,
+      "precondition": "Each arm holds its bottle above the table.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_007",
+      "condition_index": 7,
+      "condition_key": "empty_bin|Tilt and shake the small tabletop bin over the large floor bin until its contents fall inside.",
+      "skill_id": "empty_bin",
+      "skill_text": "Tilt and shake the small tabletop bin over the large floor bin until its contents fall inside.",
+      "bindings": {
+        "object": "the small tabletop bin",
+        "arm": "left",
+        "destination": "the large floor bin"
+      },
+      "task": "dump_bin_bigbin",
+      "max_policy_steps": 400,
+      "precondition": "The small bin is held by the left arm.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_008",
+      "condition_index": 8,
+      "condition_key": "grasp_and_lift_block|Grasp the green block with the left arm and lift it clear of the table.",
+      "skill_id": "grasp_and_lift_block",
+      "skill_text": "Grasp the green block with the left arm and lift it clear of the table.",
+      "bindings": {
+        "object": "the green block",
+        "arm": "left",
+        "destination": "above the table"
+      },
+      "task": "stack_blocks_two",
+      "max_policy_steps": 240,
+      "precondition": "The selected block is on the table and its gripper is free.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_009",
+      "condition_index": 9,
+      "condition_key": "grasp_and_lift_block|Grasp the green block with the right arm and lift it clear of the table.",
+      "skill_id": "grasp_and_lift_block",
+      "skill_text": "Grasp the green block with the right arm and lift it clear of the table.",
+      "bindings": {
+        "object": "the green block",
+        "arm": "right",
+        "destination": "above the table"
+      },
+      "task": "stack_blocks_two",
+      "max_policy_steps": 240,
+      "precondition": "The selected block is on the table and its gripper is free.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_010",
+      "condition_index": 10,
+      "condition_key": "grasp_and_lift_block|Grasp the red block with the left arm and lift it clear of the table.",
+      "skill_id": "grasp_and_lift_block",
+      "skill_text": "Grasp the red block with the left arm and lift it clear of the table.",
+      "bindings": {
+        "object": "the red block",
+        "arm": "left",
+        "destination": "above the table"
+      },
+      "task": "stack_blocks_two",
+      "max_policy_steps": 240,
+      "precondition": "The selected block is on the table and its gripper is free.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_011",
+      "condition_index": 11,
+      "condition_key": "grasp_and_lift_block|Grasp the red block with the right arm and lift it clear of the table.",
+      "skill_id": "grasp_and_lift_block",
+      "skill_text": "Grasp the red block with the right arm and lift it clear of the table.",
+      "bindings": {
+        "object": "the red block",
+        "arm": "right",
+        "destination": "above the table"
+      },
+      "task": "stack_blocks_two",
+      "max_policy_steps": 240,
+      "precondition": "The selected block is on the table and its gripper is free.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_012",
+      "condition_index": 12,
+      "condition_key": "grasp_and_lift_bottles|Grasp the left bottle with the left arm and the right bottle with the right arm, then lift both.",
+      "skill_id": "grasp_and_lift_bottles",
+      "skill_text": "Grasp the left bottle with the left arm and the right bottle with the right arm, then lift both.",
+      "bindings": {
+        "object": "the left bottle",
+        "arm": "left",
+        "destination": "above the table",
+        "secondary_object": "the right bottle",
+        "secondary_arm": "right"
+      },
+      "task": "pick_dual_bottles",
+      "max_policy_steps": 240,
+      "precondition": "Both bottles are on the table and both grippers are free.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_013",
+      "condition_index": 13,
+      "condition_key": "grasp_and_lift_bread_skillet|Grasp and lift the skillet with the left arm and the bread with the right arm.",
+      "skill_id": "grasp_and_lift_bread_skillet",
+      "skill_text": "Grasp and lift the skillet with the left arm and the bread with the right arm.",
+      "bindings": {
+        "object": "skillet",
+        "arm": "left",
+        "destination": "above the table",
+        "secondary_object": "the bread",
+        "secondary_arm": "right"
+      },
+      "task": "place_bread_skillet",
+      "max_policy_steps": 240,
+      "precondition": "The skillet and bread are on the table and both grippers are free.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_014",
+      "condition_index": 14,
+      "condition_key": "grasp_and_lift_bread_skillet|Grasp and lift the skillet with the right arm and the bread with the left arm.",
+      "skill_id": "grasp_and_lift_bread_skillet",
+      "skill_text": "Grasp and lift the skillet with the right arm and the bread with the left arm.",
+      "bindings": {
+        "object": "skillet",
+        "arm": "right",
+        "destination": "above the table",
+        "secondary_object": "the bread",
+        "secondary_arm": "left"
+      },
+      "task": "place_bread_skillet",
+      "max_policy_steps": 240,
+      "precondition": "The skillet and bread are on the table and both grippers are free.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_015",
+      "condition_index": 15,
+      "condition_key": "grasp_and_lift_object|Grasp the object beside the basket with the left arm and lift it clear of the table.",
+      "skill_id": "grasp_and_lift_object",
+      "skill_text": "Grasp the object beside the basket with the left arm and lift it clear of the table.",
+      "bindings": {
+        "object": "the object beside the basket",
+        "arm": "left",
+        "destination": "above its current location"
+      },
+      "task": "place_object_basket",
+      "max_policy_steps": 240,
+      "precondition": "The object is beside the basket and the selected gripper is free.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_016",
+      "condition_index": 16,
+      "condition_key": "grasp_and_lift_object|Grasp the object beside the basket with the right arm and lift it clear of the table.",
+      "skill_id": "grasp_and_lift_object",
+      "skill_text": "Grasp the object beside the basket with the right arm and lift it clear of the table.",
+      "bindings": {
+        "object": "the object beside the basket",
+        "arm": "right",
+        "destination": "above its current location"
+      },
+      "task": "place_object_basket",
+      "max_policy_steps": 240,
+      "precondition": "The object is beside the basket and the selected gripper is free.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_017",
+      "condition_index": 17,
+      "condition_key": "grasp_and_lift_shoe|Grasp the shoe with the left arm and lift it clear of the table.",
+      "skill_id": "grasp_and_lift_shoe",
+      "skill_text": "Grasp the shoe with the left arm and lift it clear of the table.",
+      "bindings": {
+        "object": "shoe",
+        "arm": "left",
+        "destination": "above the table"
+      },
+      "task": "place_shoe",
+      "max_policy_steps": 240,
+      "precondition": "The shoe is on the table and the selected gripper is free.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_018",
+      "condition_index": 18,
+      "condition_key": "grasp_and_lift_shoe|Grasp the shoe with the right arm and lift it clear of the table.",
+      "skill_id": "grasp_and_lift_shoe",
+      "skill_text": "Grasp the shoe with the right arm and lift it clear of the table.",
+      "bindings": {
+        "object": "shoe",
+        "arm": "right",
+        "destination": "above the table"
+      },
+      "task": "place_shoe",
+      "max_policy_steps": 240,
+      "precondition": "The shoe is on the table and the selected gripper is free.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_019",
+      "condition_index": 19,
+      "condition_key": "grasp_cabinet_object|Grasp the object beside the cabinet with the left arm.",
+      "skill_id": "grasp_cabinet_object",
+      "skill_text": "Grasp the object beside the cabinet with the left arm.",
+      "bindings": {
+        "object": "object",
+        "arm": "left",
+        "destination": "the current location"
+      },
+      "task": "put_object_cabinet",
+      "max_policy_steps": 240,
+      "precondition": "The object is on the table and the selected gripper is free.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_020",
+      "condition_index": 20,
+      "condition_key": "grasp_cabinet_object|Grasp the object beside the cabinet with the right arm.",
+      "skill_id": "grasp_cabinet_object",
+      "skill_text": "Grasp the object beside the cabinet with the right arm.",
+      "bindings": {
+        "object": "object",
+        "arm": "right",
+        "destination": "the current location"
+      },
+      "task": "put_object_cabinet",
+      "max_policy_steps": 240,
+      "precondition": "The object is on the table and the selected gripper is free.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_021",
+      "condition_index": 21,
+      "condition_key": "grasp_can|Grasp the can with the left arm.",
+      "skill_id": "grasp_can",
+      "skill_text": "Grasp the can with the left arm.",
+      "bindings": {
+        "object": "the can",
+        "arm": "left",
+        "destination": "above its current location"
+      },
+      "task": "place_can_basket",
+      "max_policy_steps": 240,
+      "precondition": "The object is beside the basket and the selected gripper is free.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_022",
+      "condition_index": 22,
+      "condition_key": "grasp_can|Grasp the can with the right arm.",
+      "skill_id": "grasp_can",
+      "skill_text": "Grasp the can with the right arm.",
+      "bindings": {
+        "object": "the can",
+        "arm": "right",
+        "destination": "above its current location"
+      },
+      "task": "place_can_basket",
+      "max_policy_steps": 240,
+      "precondition": "The object is beside the basket and the selected gripper is free.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_023",
+      "condition_index": 23,
+      "condition_key": "grasp_cards|Grasp the playing-card box with the left gripper.",
+      "skill_id": "grasp_cards",
+      "skill_text": "Grasp the playing-card box with the left gripper.",
+      "bindings": {
+        "object": "playingcards",
+        "arm": "left",
+        "destination": "the current location"
+      },
+      "task": "move_playingcard_away",
+      "max_policy_steps": 240,
+      "precondition": "The playing-card box is on the table and the selected gripper is free.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_024",
+      "condition_index": 24,
+      "condition_key": "grasp_cards|Grasp the playing-card box with the right gripper.",
+      "skill_id": "grasp_cards",
+      "skill_text": "Grasp the playing-card box with the right gripper.",
+      "bindings": {
+        "object": "playingcards",
+        "arm": "right",
+        "destination": "the current location"
+      },
+      "task": "move_playingcard_away",
+      "max_policy_steps": 240,
+      "precondition": "The playing-card box is on the table and the selected gripper is free.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_025",
+      "condition_index": 25,
+      "condition_key": "grasp_door_handle|Grasp the microwave door handle with the left gripper.",
+      "skill_id": "grasp_door_handle",
+      "skill_text": "Grasp the microwave door handle with the left gripper.",
+      "bindings": {
+        "object": "the microwave door handle",
+        "arm": "left",
+        "destination": ""
+      },
+      "task": "open_microwave",
+      "max_policy_steps": 250,
+      "precondition": "The microwave door is closed and its handle is reachable.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_026",
+      "condition_index": 26,
+      "condition_key": "grasp_drawer_handle|Grasp the cabinet drawer handle with the left arm.",
+      "skill_id": "grasp_drawer_handle",
+      "skill_text": "Grasp the cabinet drawer handle with the left arm.",
+      "bindings": {
+        "object": "cabinet",
+        "arm": "left",
+        "destination": "the drawer handle"
+      },
+      "task": "put_object_cabinet",
+      "max_policy_steps": 240,
+      "precondition": "The opposite arm holds the object and the drawer is closed.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_027",
+      "condition_index": 27,
+      "condition_key": "grasp_drawer_handle|Grasp the cabinet drawer handle with the right arm.",
+      "skill_id": "grasp_drawer_handle",
+      "skill_text": "Grasp the cabinet drawer handle with the right arm.",
+      "bindings": {
+        "object": "cabinet",
+        "arm": "right",
+        "destination": "the drawer handle"
+      },
+      "task": "put_object_cabinet",
+      "max_policy_steps": 240,
+      "precondition": "The opposite arm holds the object and the drawer is closed.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_028",
+      "condition_index": 28,
+      "condition_key": "grasp_loaded_basket|Grasp the loaded basket with the left arm while returning the right arm out of the way.",
+      "skill_id": "grasp_loaded_basket",
+      "skill_text": "Grasp the loaded basket with the left arm while returning the right arm out of the way.",
+      "bindings": {
+        "object": "basket",
+        "arm": "left",
+        "destination": "the basket handle",
+        "payload": "can"
+      },
+      "task": "place_can_basket",
+      "max_policy_steps": 240,
+      "precondition": "The object is inside the basket and the opposite gripper is free.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_028_binding2",
+      "condition_index": 28,
+      "condition_key": "grasp_loaded_basket|Grasp the loaded basket with the left arm while returning the right arm out of the way.",
+      "skill_id": "grasp_loaded_basket",
+      "skill_text": "Grasp the loaded basket with the left arm while returning the right arm out of the way.",
+      "bindings": {
+        "object": "basket",
+        "arm": "left",
+        "destination": "the basket handle",
+        "payload": "object"
+      },
+      "task": "place_object_basket",
+      "max_policy_steps": 240,
+      "precondition": "The object is inside the basket and the opposite gripper is free.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_029",
+      "condition_index": 29,
+      "condition_key": "grasp_loaded_basket|Grasp the loaded basket with the right arm while returning the left arm out of the way.",
+      "skill_id": "grasp_loaded_basket",
+      "skill_text": "Grasp the loaded basket with the right arm while returning the left arm out of the way.",
+      "bindings": {
+        "object": "basket",
+        "arm": "right",
+        "destination": "the basket handle",
+        "payload": "can"
+      },
+      "task": "place_can_basket",
+      "max_policy_steps": 240,
+      "precondition": "The object is inside the basket and the opposite gripper is free.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_029_binding2",
+      "condition_index": 29,
+      "condition_key": "grasp_loaded_basket|Grasp the loaded basket with the right arm while returning the left arm out of the way.",
+      "skill_id": "grasp_loaded_basket",
+      "skill_text": "Grasp the loaded basket with the right arm while returning the left arm out of the way.",
+      "bindings": {
+        "object": "basket",
+        "arm": "right",
+        "destination": "the basket handle",
+        "payload": "object"
+      },
+      "task": "place_object_basket",
+      "max_policy_steps": 240,
+      "precondition": "The object is inside the basket and the opposite gripper is free.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_030",
+      "condition_index": 30,
+      "condition_key": "handover_object|Present the long block with the left arm, grasp it with the right arm, then release the left gripper.",
+      "skill_id": "handover_object",
+      "skill_text": "Present the long block with the left arm, grasp it with the right arm, then release the left gripper.",
+      "bindings": {
+        "object": "the long block",
+        "arm": "right",
+        "destination": "the right gripper"
+      },
+      "task": "handover_block",
+      "max_policy_steps": 400,
+      "precondition": "The left arm holds the object and the right gripper is free.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_031",
+      "condition_index": 31,
+      "condition_key": "handover_object|Present the microphone with the left arm, grasp it with the right arm, then release the left gripper.",
+      "skill_id": "handover_object",
+      "skill_text": "Present the microphone with the left arm, grasp it with the right arm, then release the left gripper.",
+      "bindings": {
+        "object": "the microphone",
+        "arm": "right",
+        "destination": "the right gripper"
+      },
+      "task": "handover_mic",
+      "max_policy_steps": 400,
+      "precondition": "The left arm holds the object and the right gripper is free.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_032",
+      "condition_index": 32,
+      "condition_key": "handover_object|Present the microphone with the right arm, grasp it with the left arm, then release the right gripper.",
+      "skill_id": "handover_object",
+      "skill_text": "Present the microphone with the right arm, grasp it with the left arm, then release the right gripper.",
+      "bindings": {
+        "object": "the microphone",
+        "arm": "left",
+        "destination": "the left gripper"
+      },
+      "task": "handover_mic",
+      "max_policy_steps": 400,
+      "precondition": "The right arm holds the object and the left gripper is free.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_034",
+      "condition_index": 34,
+      "condition_key": "insert_and_release_in_basket|Place the can inside the basket with the left arm and release it.",
+      "skill_id": "insert_and_release_in_basket",
+      "skill_text": "Place the can inside the basket with the left arm and release it.",
+      "bindings": {
+        "object": "the can",
+        "arm": "left",
+        "destination": "inside the basket"
+      },
+      "task": "place_can_basket",
+      "max_policy_steps": 320,
+      "precondition": "The selected gripper holds the object and the basket is on the table.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_035",
+      "condition_index": 35,
+      "condition_key": "insert_and_release_in_basket|Place the can inside the basket with the right arm and release it.",
+      "skill_id": "insert_and_release_in_basket",
+      "skill_text": "Place the can inside the basket with the right arm and release it.",
+      "bindings": {
+        "object": "the can",
+        "arm": "right",
+        "destination": "inside the basket"
+      },
+      "task": "place_can_basket",
+      "max_policy_steps": 320,
+      "precondition": "The selected gripper holds the object and the basket is on the table.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_036",
+      "condition_index": 36,
+      "condition_key": "insert_and_release_in_basket|Place the object beside the basket inside the basket with the left arm and release it.",
+      "skill_id": "insert_and_release_in_basket",
+      "skill_text": "Place the object beside the basket inside the basket with the left arm and release it.",
+      "bindings": {
+        "object": "the object beside the basket",
+        "arm": "left",
+        "destination": "inside the basket"
+      },
+      "task": "place_object_basket",
+      "max_policy_steps": 320,
+      "precondition": "The selected gripper holds the object and the basket is on the table.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_037",
+      "condition_index": 37,
+      "condition_key": "insert_and_release_in_basket|Place the object beside the basket inside the basket with the right arm and release it.",
+      "skill_id": "insert_and_release_in_basket",
+      "skill_text": "Place the object beside the basket inside the basket with the right arm and release it.",
+      "bindings": {
+        "object": "the object beside the basket",
+        "arm": "right",
+        "destination": "inside the basket"
+      },
+      "task": "place_object_basket",
+      "max_policy_steps": 320,
+      "precondition": "The selected gripper holds the object and the basket is on the table.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_038",
+      "condition_index": 38,
+      "condition_key": "lift_cabinet_object|Lift the held object with the left arm above the open drawer rim.",
+      "skill_id": "lift_cabinet_object",
+      "skill_text": "Lift the held object with the left arm above the open drawer rim.",
+      "bindings": {
+        "object": "object",
+        "arm": "left",
+        "destination": "above the open drawer"
+      },
+      "task": "put_object_cabinet",
+      "max_policy_steps": 140,
+      "precondition": "The object is held and the drawer has been opened.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_039",
+      "condition_index": 39,
+      "condition_key": "lift_cabinet_object|Lift the held object with the right arm above the open drawer rim.",
+      "skill_id": "lift_cabinet_object",
+      "skill_text": "Lift the held object with the right arm above the open drawer rim.",
+      "bindings": {
+        "object": "object",
+        "arm": "right",
+        "destination": "above the open drawer"
+      },
+      "task": "put_object_cabinet",
+      "max_policy_steps": 140,
+      "precondition": "The object is held and the drawer has been opened.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_040",
+      "condition_index": 40,
+      "condition_key": "lift_loaded_basket|Lift the basket with the left arm while keeping the object inside.",
+      "skill_id": "lift_loaded_basket",
+      "skill_text": "Lift the basket with the left arm while keeping the object inside.",
+      "bindings": {
+        "object": "basket",
+        "arm": "left",
+        "destination": "above the table",
+        "payload": "can"
+      },
+      "task": "place_can_basket",
+      "max_policy_steps": 140,
+      "precondition": "The selected gripper holds the loaded basket.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_040_binding2",
+      "condition_index": 40,
+      "condition_key": "lift_loaded_basket|Lift the basket with the left arm while keeping the object inside.",
+      "skill_id": "lift_loaded_basket",
+      "skill_text": "Lift the basket with the left arm while keeping the object inside.",
+      "bindings": {
+        "object": "basket",
+        "arm": "left",
+        "destination": "above the table",
+        "payload": "object"
+      },
+      "task": "place_object_basket",
+      "max_policy_steps": 140,
+      "precondition": "The selected gripper holds the loaded basket.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_041",
+      "condition_index": 41,
+      "condition_key": "lift_loaded_basket|Lift the basket with the right arm while keeping the object inside.",
+      "skill_id": "lift_loaded_basket",
+      "skill_text": "Lift the basket with the right arm while keeping the object inside.",
+      "bindings": {
+        "object": "basket",
+        "arm": "right",
+        "destination": "above the table",
+        "payload": "can"
+      },
+      "task": "place_can_basket",
+      "max_policy_steps": 140,
+      "precondition": "The selected gripper holds the loaded basket.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_041_binding2",
+      "condition_index": 41,
+      "condition_key": "lift_loaded_basket|Lift the basket with the right arm while keeping the object inside.",
+      "skill_id": "lift_loaded_basket",
+      "skill_text": "Lift the basket with the right arm while keeping the object inside.",
+      "bindings": {
+        "object": "basket",
+        "arm": "right",
+        "destination": "above the table",
+        "payload": "object"
+      },
+      "task": "place_object_basket",
+      "max_policy_steps": 140,
+      "precondition": "The selected gripper holds the loaded basket.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_042",
+      "condition_index": 42,
+      "condition_key": "move_cards_outward|Move the held playing-card box toward the left edge of the table.",
+      "skill_id": "move_cards_outward",
+      "skill_text": "Move the held playing-card box toward the left edge of the table.",
+      "bindings": {
+        "object": "playingcards",
+        "arm": "left",
+        "destination": "the left edge of the table"
+      },
+      "task": "move_playingcard_away",
+      "max_policy_steps": 240,
+      "precondition": "The selected gripper holds the playing-card box.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_043",
+      "condition_index": 43,
+      "condition_key": "move_cards_outward|Move the held playing-card box toward the right edge of the table.",
+      "skill_id": "move_cards_outward",
+      "skill_text": "Move the held playing-card box toward the right edge of the table.",
+      "bindings": {
+        "object": "playingcards",
+        "arm": "right",
+        "destination": "the right edge of the table"
+      },
+      "task": "move_playingcard_away",
+      "max_policy_steps": 240,
+      "precondition": "The selected gripper holds the playing-card box.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_044",
+      "condition_index": 44,
+      "condition_key": "orient_and_hold|Orient the bottle upright and hold it raised on the left side.",
+      "skill_id": "orient_and_hold",
+      "skill_text": "Orient the bottle upright and hold it raised on the left side.",
+      "bindings": {
+        "object": "the bottle",
+        "arm": "left",
+        "destination": "the left side"
+      },
+      "task": "adjust_bottle",
+      "max_policy_steps": 250,
+      "precondition": "The bottle is held clear of the table.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_045",
+      "condition_index": 45,
+      "condition_key": "orient_and_hold|Orient the bottle upright and hold it raised on the right side.",
+      "skill_id": "orient_and_hold",
+      "skill_text": "Orient the bottle upright and hold it raised on the right side.",
+      "bindings": {
+        "object": "the bottle",
+        "arm": "right",
+        "destination": "the right side"
+      },
+      "task": "adjust_bottle",
+      "max_policy_steps": 250,
+      "precondition": "The bottle is held clear of the table.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_046",
+      "condition_index": 46,
+      "condition_key": "pick_and_lift|Grasp the bottle with the left arm and lift it clear of the table.",
+      "skill_id": "pick_and_lift",
+      "skill_text": "Grasp the bottle with the left arm and lift it clear of the table.",
+      "bindings": {
+        "object": "the bottle",
+        "arm": "left",
+        "destination": ""
+      },
+      "task": "adjust_bottle",
+      "max_policy_steps": 250,
+      "precondition": "The object is reachable and is not held by the other arm.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_047",
+      "condition_index": 47,
+      "condition_key": "pick_and_lift|Grasp the bottle with the right arm and lift it clear of the table.",
+      "skill_id": "pick_and_lift",
+      "skill_text": "Grasp the bottle with the right arm and lift it clear of the table.",
+      "bindings": {
+        "object": "the bottle",
+        "arm": "right",
+        "destination": ""
+      },
+      "task": "adjust_bottle",
+      "max_policy_steps": 250,
+      "precondition": "The object is reachable and is not held by the other arm.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_048",
+      "condition_index": 48,
+      "condition_key": "pick_and_lift|Grasp the hammer with the left arm and lift it clear of the table.",
+      "skill_id": "pick_and_lift",
+      "skill_text": "Grasp the hammer with the left arm and lift it clear of the table.",
+      "bindings": {
+        "object": "the hammer",
+        "arm": "left",
+        "destination": ""
+      },
+      "task": "beat_block_hammer",
+      "max_policy_steps": 250,
+      "precondition": "The object is reachable and is not held by the other arm.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_049",
+      "condition_index": 49,
+      "condition_key": "pick_and_lift|Grasp the hammer with the right arm and lift it clear of the table.",
+      "skill_id": "pick_and_lift",
+      "skill_text": "Grasp the hammer with the right arm and lift it clear of the table.",
+      "bindings": {
+        "object": "the hammer",
+        "arm": "right",
+        "destination": ""
+      },
+      "task": "beat_block_hammer",
+      "max_policy_steps": 250,
+      "precondition": "The object is reachable and is not held by the other arm.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_050",
+      "condition_index": 50,
+      "condition_key": "pick_and_lift|Grasp the long block with the left arm and lift it clear of the table.",
+      "skill_id": "pick_and_lift",
+      "skill_text": "Grasp the long block with the left arm and lift it clear of the table.",
+      "bindings": {
+        "object": "the long block",
+        "arm": "left",
+        "destination": ""
+      },
+      "task": "handover_block",
+      "max_policy_steps": 250,
+      "precondition": "The object is reachable and is not held by the other arm.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_051",
+      "condition_index": 51,
+      "condition_key": "pick_and_lift|Grasp the microphone with the left arm and lift it clear of the table.",
+      "skill_id": "pick_and_lift",
+      "skill_text": "Grasp the microphone with the left arm and lift it clear of the table.",
+      "bindings": {
+        "object": "the microphone",
+        "arm": "left",
+        "destination": ""
+      },
+      "task": "handover_mic",
+      "max_policy_steps": 250,
+      "precondition": "The object is reachable and is not held by the other arm.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_052",
+      "condition_index": 52,
+      "condition_key": "pick_and_lift|Grasp the microphone with the right arm and lift it clear of the table.",
+      "skill_id": "pick_and_lift",
+      "skill_text": "Grasp the microphone with the right arm and lift it clear of the table.",
+      "bindings": {
+        "object": "the microphone",
+        "arm": "right",
+        "destination": ""
+      },
+      "task": "handover_mic",
+      "max_policy_steps": 250,
+      "precondition": "The object is reachable and is not held by the other arm.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_053",
+      "condition_index": 53,
+      "condition_key": "pick_and_lift|Grasp the mug with the left arm and lift it clear of the table.",
+      "skill_id": "pick_and_lift",
+      "skill_text": "Grasp the mug with the left arm and lift it clear of the table.",
+      "bindings": {
+        "object": "the mug",
+        "arm": "left",
+        "destination": ""
+      },
+      "task": "hanging_mug",
+      "max_policy_steps": 250,
+      "precondition": "The object is reachable and is not held by the other arm.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_054",
+      "condition_index": 54,
+      "condition_key": "pick_and_lift|Grasp the mug with the right arm and lift it clear of the table.",
+      "skill_id": "pick_and_lift",
+      "skill_text": "Grasp the mug with the right arm and lift it clear of the table.",
+      "bindings": {
+        "object": "the mug",
+        "arm": "right",
+        "destination": ""
+      },
+      "task": "hanging_mug",
+      "max_policy_steps": 250,
+      "precondition": "The object is reachable and is not held by the other arm.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_055",
+      "condition_index": 55,
+      "condition_key": "pick_and_lift|Grasp the small tabletop bin with the left arm and lift it clear of the table.",
+      "skill_id": "pick_and_lift",
+      "skill_text": "Grasp the small tabletop bin with the left arm and lift it clear of the table.",
+      "bindings": {
+        "object": "the small tabletop bin",
+        "arm": "left",
+        "destination": ""
+      },
+      "task": "dump_bin_bigbin",
+      "max_policy_steps": 250,
+      "precondition": "The object is reachable and is not held by the other arm.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_056",
+      "condition_index": 56,
+      "condition_key": "pick_and_lift|Grasp the small tabletop bin with the right arm and lift it clear of the table.",
+      "skill_id": "pick_and_lift",
+      "skill_text": "Grasp the small tabletop bin with the right arm and lift it clear of the table.",
+      "bindings": {
+        "object": "the small tabletop bin",
+        "arm": "right",
+        "destination": ""
+      },
+      "task": "dump_bin_bigbin",
+      "max_policy_steps": 250,
+      "precondition": "The object is reachable and is not held by the other arm.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_057",
+      "condition_index": 57,
+      "condition_key": "pick_and_lift|Pick up the QR-code sign with the left arm and lift it clear of the table.",
+      "skill_id": "pick_and_lift",
+      "skill_text": "Pick up the QR-code sign with the left arm and lift it clear of the table.",
+      "bindings": {
+        "object": "the QR-code sign",
+        "arm": "left",
+        "destination": "the placement area on the same side of the table"
+      },
+      "task": "rotate_qrcode",
+      "max_policy_steps": 250,
+      "precondition": "The named object is on its support and reachable by the specified arm.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_058",
+      "condition_index": 58,
+      "condition_key": "pick_and_lift|Pick up the QR-code sign with the right arm and lift it clear of the table.",
+      "skill_id": "pick_and_lift",
+      "skill_text": "Pick up the QR-code sign with the right arm and lift it clear of the table.",
+      "bindings": {
+        "object": "the QR-code sign",
+        "arm": "right",
+        "destination": "the placement area on the same side of the table"
+      },
+      "task": "rotate_qrcode",
+      "max_policy_steps": 250,
+      "precondition": "The named object is on its support and reachable by the specified arm.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_059",
+      "condition_index": 59,
+      "condition_key": "pick_and_lift|Pick up the backmost bowl at the start with the left arm and lift it clear of the table.",
+      "skill_id": "pick_and_lift",
+      "skill_text": "Pick up the backmost bowl at the start with the left arm and lift it clear of the table.",
+      "bindings": {
+        "object": "the backmost bowl at the start",
+        "arm": "left",
+        "destination": "the already placed bowl stack"
+      },
+      "task": "stack_bowls_three",
+      "max_policy_steps": 250,
+      "precondition": "The named object is on its support and reachable by the specified arm.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_060",
+      "condition_index": 60,
+      "condition_key": "pick_and_lift|Pick up the backmost bowl at the start with the right arm and lift it clear of the table.",
+      "skill_id": "pick_and_lift",
+      "skill_text": "Pick up the backmost bowl at the start with the right arm and lift it clear of the table.",
+      "bindings": {
+        "object": "the backmost bowl at the start",
+        "arm": "right",
+        "destination": "the already placed bowl stack"
+      },
+      "task": "stack_bowls_three",
+      "max_policy_steps": 250,
+      "precondition": "The named object is on its support and reachable by the specified arm.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_061",
+      "condition_index": 61,
+      "condition_key": "pick_and_lift|Pick up the frontmost bowl at the start with the left arm and lift it clear of the table.",
+      "skill_id": "pick_and_lift",
+      "skill_text": "Pick up the frontmost bowl at the start with the left arm and lift it clear of the table.",
+      "bindings": {
+        "object": "the frontmost bowl at the start",
+        "arm": "left",
+        "destination": "the center of the table"
+      },
+      "task": "stack_bowls_three",
+      "max_policy_steps": 250,
+      "precondition": "The named object is on its support and reachable by the specified arm.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_062",
+      "condition_index": 62,
+      "condition_key": "pick_and_lift|Pick up the frontmost bowl at the start with the right arm and lift it clear of the table.",
+      "skill_id": "pick_and_lift",
+      "skill_text": "Pick up the frontmost bowl at the start with the right arm and lift it clear of the table.",
+      "bindings": {
+        "object": "the frontmost bowl at the start",
+        "arm": "right",
+        "destination": "the center of the table"
+      },
+      "task": "stack_bowls_three",
+      "max_policy_steps": 250,
+      "precondition": "The named object is on its support and reachable by the specified arm.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_063",
+      "condition_index": 63,
+      "condition_key": "pick_and_lift|Pick up the middle bowl at the start with the left arm and lift it clear of the table.",
+      "skill_id": "pick_and_lift",
+      "skill_text": "Pick up the middle bowl at the start with the left arm and lift it clear of the table.",
+      "bindings": {
+        "object": "the middle bowl at the start",
+        "arm": "left",
+        "destination": "the already placed bowl stack"
+      },
+      "task": "stack_bowls_three",
+      "max_policy_steps": 250,
+      "precondition": "The named object is on its support and reachable by the specified arm.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_064",
+      "condition_index": 64,
+      "condition_key": "pick_and_lift|Pick up the middle bowl at the start with the right arm and lift it clear of the table.",
+      "skill_id": "pick_and_lift",
+      "skill_text": "Pick up the middle bowl at the start with the right arm and lift it clear of the table.",
+      "bindings": {
+        "object": "the middle bowl at the start",
+        "arm": "right",
+        "destination": "the already placed bowl stack"
+      },
+      "task": "stack_bowls_three",
+      "max_policy_steps": 250,
+      "precondition": "The named object is on its support and reachable by the specified arm.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_069",
+      "condition_index": 69,
+      "condition_key": "place_and_release|Place the backmost bowl at the start on the already placed bowl stack with the left arm and release it.",
+      "skill_id": "place_and_release",
+      "skill_text": "Place the backmost bowl at the start on the already placed bowl stack with the left arm and release it.",
+      "bindings": {
+        "object": "the backmost bowl at the start",
+        "arm": "left",
+        "destination": "the already placed bowl stack"
+      },
+      "task": "stack_bowls_three",
+      "max_policy_steps": 350,
+      "precondition": "The specified arm already holds the named object; the named support is available.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_070",
+      "condition_index": 70,
+      "condition_key": "place_and_release|Place the backmost bowl at the start on the already placed bowl stack with the right arm and release it.",
+      "skill_id": "place_and_release",
+      "skill_text": "Place the backmost bowl at the start on the already placed bowl stack with the right arm and release it.",
+      "bindings": {
+        "object": "the backmost bowl at the start",
+        "arm": "right",
+        "destination": "the already placed bowl stack"
+      },
+      "task": "stack_bowls_three",
+      "max_policy_steps": 350,
+      "precondition": "The specified arm already holds the named object; the named support is available.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_071",
+      "condition_index": 71,
+      "condition_key": "place_and_release|Place the frontmost bowl at the start on the center of the table with the left arm and release it.",
+      "skill_id": "place_and_release",
+      "skill_text": "Place the frontmost bowl at the start on the center of the table with the left arm and release it.",
+      "bindings": {
+        "object": "the frontmost bowl at the start",
+        "arm": "left",
+        "destination": "the center of the table"
+      },
+      "task": "stack_bowls_three",
+      "max_policy_steps": 350,
+      "precondition": "The specified arm already holds the named object; the named support is available.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_072",
+      "condition_index": 72,
+      "condition_key": "place_and_release|Place the frontmost bowl at the start on the center of the table with the right arm and release it.",
+      "skill_id": "place_and_release",
+      "skill_text": "Place the frontmost bowl at the start on the center of the table with the right arm and release it.",
+      "bindings": {
+        "object": "the frontmost bowl at the start",
+        "arm": "right",
+        "destination": "the center of the table"
+      },
+      "task": "stack_bowls_three",
+      "max_policy_steps": 350,
+      "precondition": "The specified arm already holds the named object; the named support is available.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_073",
+      "condition_index": 73,
+      "condition_key": "place_and_release|Place the middle bowl at the start on the already placed bowl stack with the left arm and release it.",
+      "skill_id": "place_and_release",
+      "skill_text": "Place the middle bowl at the start on the already placed bowl stack with the left arm and release it.",
+      "bindings": {
+        "object": "the middle bowl at the start",
+        "arm": "left",
+        "destination": "the already placed bowl stack"
+      },
+      "task": "stack_bowls_three",
+      "max_policy_steps": 350,
+      "precondition": "The specified arm already holds the named object; the named support is available.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_074",
+      "condition_index": 74,
+      "condition_key": "place_and_release|Place the middle bowl at the start on the already placed bowl stack with the right arm and release it.",
+      "skill_id": "place_and_release",
+      "skill_text": "Place the middle bowl at the start on the already placed bowl stack with the right arm and release it.",
+      "bindings": {
+        "object": "the middle bowl at the start",
+        "arm": "right",
+        "destination": "the already placed bowl stack"
+      },
+      "task": "stack_bowls_three",
+      "max_policy_steps": 350,
+      "precondition": "The specified arm already holds the named object; the named support is available.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_075",
+      "condition_index": 75,
+      "condition_key": "place_at_center|Place the mug at the center of the table with the left arm and release it.",
+      "skill_id": "place_at_center",
+      "skill_text": "Place the mug at the center of the table with the left arm and release it.",
+      "bindings": {
+        "object": "the mug",
+        "arm": "left",
+        "destination": "the center of the table"
+      },
+      "task": "hanging_mug",
+      "max_policy_steps": 250,
+      "precondition": "The object is held by the specified arm.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_076",
+      "condition_index": 76,
+      "condition_key": "place_at_center|Place the small tabletop bin at the center of the table with the right arm and release it.",
+      "skill_id": "place_at_center",
+      "skill_text": "Place the small tabletop bin at the center of the table with the right arm and release it.",
+      "bindings": {
+        "object": "the small tabletop bin",
+        "arm": "right",
+        "destination": "the center of the table"
+      },
+      "task": "dump_bin_bigbin",
+      "max_policy_steps": 250,
+      "precondition": "The object is held by the specified arm.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_077",
+      "condition_index": 77,
+      "condition_key": "place_bread_on_skillet|Place the held bread on the skillet with the left arm and release it.",
+      "skill_id": "place_bread_on_skillet",
+      "skill_text": "Place the held bread on the skillet with the left arm and release it.",
+      "bindings": {
+        "object": "bread",
+        "arm": "left",
+        "destination": "the skillet"
+      },
+      "task": "place_bread_skillet",
+      "max_policy_steps": 240,
+      "precondition": "One arm holds the skillet level and the other holds the bread.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_078",
+      "condition_index": 78,
+      "condition_key": "place_bread_on_skillet|Place the held bread on the skillet with the right arm and release it.",
+      "skill_id": "place_bread_on_skillet",
+      "skill_text": "Place the held bread on the skillet with the right arm and release it.",
+      "bindings": {
+        "object": "bread",
+        "arm": "right",
+        "destination": "the skillet"
+      },
+      "task": "place_bread_skillet",
+      "max_policy_steps": 240,
+      "precondition": "One arm holds the skillet level and the other holds the bread.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_079",
+      "condition_index": 79,
+      "condition_key": "place_object_in_drawer|Place the held object inside the open drawer with the left arm and release it.",
+      "skill_id": "place_object_in_drawer",
+      "skill_text": "Place the held object inside the open drawer with the left arm and release it.",
+      "bindings": {
+        "object": "object",
+        "arm": "left",
+        "destination": "inside the open drawer"
+      },
+      "task": "put_object_cabinet",
+      "max_policy_steps": 300,
+      "precondition": "The object is held above the open drawer.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_080",
+      "condition_index": 80,
+      "condition_key": "place_object_in_drawer|Place the held object inside the open drawer with the right arm and release it.",
+      "skill_id": "place_object_in_drawer",
+      "skill_text": "Place the held object inside the open drawer with the right arm and release it.",
+      "bindings": {
+        "object": "object",
+        "arm": "right",
+        "destination": "inside the open drawer"
+      },
+      "task": "put_object_cabinet",
+      "max_policy_steps": 300,
+      "precondition": "The object is held above the open drawer.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_082",
+      "condition_index": 82,
+      "condition_key": "prepare_stapler_press|Position the left gripper above the stapler and close it for pressing.",
+      "skill_id": "prepare_stapler_press",
+      "skill_text": "Position the left gripper above the stapler and close it for pressing.",
+      "bindings": {
+        "object": "stapler",
+        "arm": "left",
+        "destination": "above the stapler"
+      },
+      "task": "press_stapler",
+      "max_policy_steps": 240,
+      "precondition": "The stapler is visible on the table and the selected arm is free.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_083",
+      "condition_index": 83,
+      "condition_key": "prepare_stapler_press|Position the right gripper above the stapler and close it for pressing.",
+      "skill_id": "prepare_stapler_press",
+      "skill_text": "Position the right gripper above the stapler and close it for pressing.",
+      "bindings": {
+        "object": "stapler",
+        "arm": "right",
+        "destination": "above the stapler"
+      },
+      "task": "press_stapler",
+      "max_policy_steps": 240,
+      "precondition": "The stapler is visible on the table and the selected arm is free.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_084",
+      "condition_index": 84,
+      "condition_key": "present_skillet|Bring the held skillet toward the center with the left arm and keep its cooking surface facing up.",
+      "skill_id": "present_skillet",
+      "skill_text": "Bring the held skillet toward the center with the left arm and keep its cooking surface facing up.",
+      "bindings": {
+        "object": "skillet",
+        "arm": "left",
+        "destination": "the central placement area"
+      },
+      "task": "place_bread_skillet",
+      "max_policy_steps": 240,
+      "precondition": "The skillet and bread are held above the table.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_085",
+      "condition_index": 85,
+      "condition_key": "present_skillet|Bring the held skillet toward the center with the right arm and keep its cooking surface facing up.",
+      "skill_id": "present_skillet",
+      "skill_text": "Bring the held skillet toward the center with the right arm and keep its cooking surface facing up.",
+      "bindings": {
+        "object": "skillet",
+        "arm": "right",
+        "destination": "the central placement area"
+      },
+      "task": "place_bread_skillet",
+      "max_policy_steps": 240,
+      "precondition": "The skillet and bread are held above the table.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_086",
+      "condition_index": 86,
+      "condition_key": "press_bell|Press the top button of the bell downward with the closed left gripper.",
+      "skill_id": "press_bell",
+      "skill_text": "Press the top button of the bell downward with the closed left gripper.",
+      "bindings": {
+        "object": "the bell",
+        "arm": "left",
+        "destination": ""
+      },
+      "task": "click_bell",
+      "max_policy_steps": 120,
+      "precondition": "The closed gripper is above the bell button.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_087",
+      "condition_index": 87,
+      "condition_key": "press_bell|Press the top button of the bell downward with the closed right gripper.",
+      "skill_id": "press_bell",
+      "skill_text": "Press the top button of the bell downward with the closed right gripper.",
+      "bindings": {
+        "object": "the bell",
+        "arm": "right",
+        "destination": ""
+      },
+      "task": "click_bell",
+      "max_policy_steps": 120,
+      "precondition": "The closed gripper is above the bell button.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_088",
+      "condition_index": 88,
+      "condition_key": "press_stapler_top|Lower the closed left gripper onto the top of the stapler to press it.",
+      "skill_id": "press_stapler_top",
+      "skill_text": "Lower the closed left gripper onto the top of the stapler to press it.",
+      "bindings": {
+        "object": "stapler",
+        "arm": "left",
+        "destination": "the top of the stapler"
+      },
+      "task": "press_stapler",
+      "max_policy_steps": 140,
+      "precondition": "The closed gripper is positioned above the stapler.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_089",
+      "condition_index": 89,
+      "condition_key": "press_stapler_top|Lower the closed right gripper onto the top of the stapler to press it.",
+      "skill_id": "press_stapler_top",
+      "skill_text": "Lower the closed right gripper onto the top of the stapler to press it.",
+      "bindings": {
+        "object": "stapler",
+        "arm": "right",
+        "destination": "the top of the stapler"
+      },
+      "task": "press_stapler",
+      "max_policy_steps": 140,
+      "precondition": "The closed gripper is positioned above the stapler.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_090",
+      "condition_index": 90,
+      "condition_key": "pull_drawer_open|Pull the drawer toward the robot with the left arm while holding the handle.",
+      "skill_id": "pull_drawer_open",
+      "skill_text": "Pull the drawer toward the robot with the left arm while holding the handle.",
+      "bindings": {
+        "object": "cabinet",
+        "arm": "left",
+        "destination": "the open drawer position"
+      },
+      "task": "put_object_cabinet",
+      "max_policy_steps": 260,
+      "precondition": "The selected gripper holds the drawer handle.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_091",
+      "condition_index": 91,
+      "condition_key": "pull_drawer_open|Pull the drawer toward the robot with the right arm while holding the handle.",
+      "skill_id": "pull_drawer_open",
+      "skill_text": "Pull the drawer toward the robot with the right arm while holding the handle.",
+      "bindings": {
+        "object": "cabinet",
+        "arm": "right",
+        "destination": "the open drawer position"
+      },
+      "task": "put_object_cabinet",
+      "max_policy_steps": 260,
+      "precondition": "The selected gripper holds the drawer handle.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_094",
+      "condition_index": 94,
+      "condition_key": "reorient_and_place|Rotate the QR-code sign with the left arm so the QR code faces you, then put it back on the table and release it.",
+      "skill_id": "reorient_and_place",
+      "skill_text": "Rotate the QR-code sign with the left arm so the QR code faces you, then put it back on the table and release it.",
+      "bindings": {
+        "object": "the QR-code sign",
+        "arm": "left",
+        "destination": "the placement area on the same side of the table"
+      },
+      "task": "rotate_qrcode",
+      "max_policy_steps": 350,
+      "precondition": "The specified arm already holds the named object above the table.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_095",
+      "condition_index": 95,
+      "condition_key": "reorient_and_place|Rotate the QR-code sign with the right arm so the QR code faces you, then put it back on the table and release it.",
+      "skill_id": "reorient_and_place",
+      "skill_text": "Rotate the QR-code sign with the right arm so the QR code faces you, then put it back on the table and release it.",
+      "bindings": {
+        "object": "the QR-code sign",
+        "arm": "right",
+        "destination": "the placement area on the same side of the table"
+      },
+      "task": "rotate_qrcode",
+      "max_policy_steps": 350,
+      "precondition": "The specified arm already holds the named object above the table.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_096",
+      "condition_index": 96,
+      "condition_key": "retreat_from_block|Lift the open left gripper away without disturbing the green block.",
+      "skill_id": "retreat_from_block",
+      "skill_text": "Lift the open left gripper away without disturbing the green block.",
+      "bindings": {
+        "object": "the green block",
+        "arm": "left",
+        "destination": "above the placed block"
+      },
+      "task": "stack_blocks_two",
+      "max_policy_steps": 100,
+      "precondition": "The block has been released at its destination.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_097",
+      "condition_index": 97,
+      "condition_key": "retreat_from_block|Lift the open left gripper away without disturbing the red block.",
+      "skill_id": "retreat_from_block",
+      "skill_text": "Lift the open left gripper away without disturbing the red block.",
+      "bindings": {
+        "object": "the red block",
+        "arm": "left",
+        "destination": "above the placed block"
+      },
+      "task": "stack_blocks_two",
+      "max_policy_steps": 100,
+      "precondition": "The block has been released at its destination.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_098",
+      "condition_index": 98,
+      "condition_key": "retreat_from_block|Lift the open right gripper away without disturbing the green block.",
+      "skill_id": "retreat_from_block",
+      "skill_text": "Lift the open right gripper away without disturbing the green block.",
+      "bindings": {
+        "object": "the green block",
+        "arm": "right",
+        "destination": "above the placed block"
+      },
+      "task": "stack_blocks_two",
+      "max_policy_steps": 100,
+      "precondition": "The block has been released at its destination.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_099",
+      "condition_index": 99,
+      "condition_key": "retreat_from_block|Lift the open right gripper away without disturbing the red block.",
+      "skill_id": "retreat_from_block",
+      "skill_text": "Lift the open right gripper away without disturbing the red block.",
+      "bindings": {
+        "object": "the red block",
+        "arm": "right",
+        "destination": "above the placed block"
+      },
+      "task": "stack_blocks_two",
+      "max_policy_steps": 100,
+      "precondition": "The block has been released at its destination.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_100",
+      "condition_index": 100,
+      "condition_key": "retreat|Move the open left gripper up and away from the mug without moving it.",
+      "skill_id": "retreat",
+      "skill_text": "Move the open left gripper up and away from the mug without moving it.",
+      "bindings": {
+        "object": "the mug",
+        "arm": "left",
+        "destination": ""
+      },
+      "task": "hanging_mug",
+      "max_policy_steps": 120,
+      "precondition": "The object has been released and is supported.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_101",
+      "condition_index": 101,
+      "condition_key": "retreat|Move the open left gripper up and away from the placed bowl without disturbing it.",
+      "skill_id": "retreat",
+      "skill_text": "Move the open left gripper up and away from the placed bowl without disturbing it.",
+      "bindings": {
+        "object": "the backmost bowl at the start",
+        "arm": "left",
+        "destination": "the already placed bowl stack"
+      },
+      "task": "stack_bowls_three",
+      "max_policy_steps": 150,
+      "precondition": "The named object has been placed and released; the specified gripper is open.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_101_binding2",
+      "condition_index": 101,
+      "condition_key": "retreat|Move the open left gripper up and away from the placed bowl without disturbing it.",
+      "skill_id": "retreat",
+      "skill_text": "Move the open left gripper up and away from the placed bowl without disturbing it.",
+      "bindings": {
+        "object": "the middle bowl at the start",
+        "arm": "left",
+        "destination": "the already placed bowl stack"
+      },
+      "task": "stack_bowls_three",
+      "max_policy_steps": 150,
+      "precondition": "The named object has been placed and released; the specified gripper is open.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_101_binding3",
+      "condition_index": 101,
+      "condition_key": "retreat|Move the open left gripper up and away from the placed bowl without disturbing it.",
+      "skill_id": "retreat",
+      "skill_text": "Move the open left gripper up and away from the placed bowl without disturbing it.",
+      "bindings": {
+        "object": "the frontmost bowl at the start",
+        "arm": "left",
+        "destination": "the center of the table"
+      },
+      "task": "stack_bowls_three",
+      "max_policy_steps": 150,
+      "precondition": "The named object has been placed and released; the specified gripper is open.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_102",
+      "condition_index": 102,
+      "condition_key": "retreat|Move the open right gripper up and away from the mug without moving it.",
+      "skill_id": "retreat",
+      "skill_text": "Move the open right gripper up and away from the mug without moving it.",
+      "bindings": {
+        "object": "the mug",
+        "arm": "right",
+        "destination": ""
+      },
+      "task": "hanging_mug",
+      "max_policy_steps": 120,
+      "precondition": "The object has been released and is supported.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_103",
+      "condition_index": 103,
+      "condition_key": "retreat|Move the open right gripper up and away from the placed bowl without disturbing it.",
+      "skill_id": "retreat",
+      "skill_text": "Move the open right gripper up and away from the placed bowl without disturbing it.",
+      "bindings": {
+        "object": "the backmost bowl at the start",
+        "arm": "right",
+        "destination": "the already placed bowl stack"
+      },
+      "task": "stack_bowls_three",
+      "max_policy_steps": 150,
+      "precondition": "The named object has been placed and released; the specified gripper is open.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_103_binding2",
+      "condition_index": 103,
+      "condition_key": "retreat|Move the open right gripper up and away from the placed bowl without disturbing it.",
+      "skill_id": "retreat",
+      "skill_text": "Move the open right gripper up and away from the placed bowl without disturbing it.",
+      "bindings": {
+        "object": "the middle bowl at the start",
+        "arm": "right",
+        "destination": "the already placed bowl stack"
+      },
+      "task": "stack_bowls_three",
+      "max_policy_steps": 150,
+      "precondition": "The named object has been placed and released; the specified gripper is open.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_103_binding3",
+      "condition_index": 103,
+      "condition_key": "retreat|Move the open right gripper up and away from the placed bowl without disturbing it.",
+      "skill_id": "retreat",
+      "skill_text": "Move the open right gripper up and away from the placed bowl without disturbing it.",
+      "bindings": {
+        "object": "the frontmost bowl at the start",
+        "arm": "right",
+        "destination": "the center of the table"
+      },
+      "task": "stack_bowls_three",
+      "max_policy_steps": 150,
+      "precondition": "The named object has been placed and released; the specified gripper is open.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_104",
+      "condition_index": 104,
+      "condition_key": "retreat|Move the open right gripper up and away from the small tabletop bin without moving it.",
+      "skill_id": "retreat",
+      "skill_text": "Move the open right gripper up and away from the small tabletop bin without moving it.",
+      "bindings": {
+        "object": "the small tabletop bin",
+        "arm": "right",
+        "destination": ""
+      },
+      "task": "dump_bin_bigbin",
+      "max_policy_steps": 120,
+      "precondition": "The object has been released and is supported.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_105",
+      "condition_index": 105,
+      "condition_key": "strike_block|Bring the held hammer down onto the block with the left arm.",
+      "skill_id": "strike_block",
+      "skill_text": "Bring the held hammer down onto the block with the left arm.",
+      "bindings": {
+        "object": "the hammer",
+        "arm": "left",
+        "destination": "the block"
+      },
+      "task": "beat_block_hammer",
+      "max_policy_steps": 250,
+      "precondition": "The hammer is held and raised.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_106",
+      "condition_index": 106,
+      "condition_key": "strike_block|Bring the held hammer down onto the block with the right arm.",
+      "skill_id": "strike_block",
+      "skill_text": "Bring the held hammer down onto the block with the right arm.",
+      "bindings": {
+        "object": "the hammer",
+        "arm": "right",
+        "destination": "the block"
+      },
+      "task": "beat_block_hammer",
+      "max_policy_steps": 250,
+      "precondition": "The hammer is held and raised.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_107",
+      "condition_index": 107,
+      "condition_key": "swing_door_open|Pull the microwave door open with the left arm, regrasping the handle if necessary.",
+      "skill_id": "swing_door_open",
+      "skill_text": "Pull the microwave door open with the left arm, regrasping the handle if necessary.",
+      "bindings": {
+        "object": "the microwave door",
+        "arm": "left",
+        "destination": ""
+      },
+      "task": "open_microwave",
+      "max_policy_steps": 1300,
+      "precondition": "The left gripper is at the microwave handle.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_108",
+      "condition_index": 108,
+      "condition_key": "withdraw_from_basket|Lift the open left gripper clear of the basket without disturbing its contents.",
+      "skill_id": "withdraw_from_basket",
+      "skill_text": "Lift the open left gripper clear of the basket without disturbing its contents.",
+      "bindings": {
+        "object": "object",
+        "arm": "left",
+        "destination": "above the basket"
+      },
+      "task": "place_object_basket",
+      "max_policy_steps": 120,
+      "precondition": "The object has been released inside the basket.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_109",
+      "condition_index": 109,
+      "condition_key": "withdraw_from_basket|Lift the open right gripper clear of the basket without disturbing its contents.",
+      "skill_id": "withdraw_from_basket",
+      "skill_text": "Lift the open right gripper clear of the basket without disturbing its contents.",
+      "bindings": {
+        "object": "object",
+        "arm": "right",
+        "destination": "above the basket"
+      },
+      "task": "place_object_basket",
+      "max_policy_steps": 120,
+      "precondition": "The object has been released inside the basket.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_110",
+      "condition_index": 110,
+      "condition_key": "withdraw_from_bell|Lift the left gripper away from the bell button after pressing it.",
+      "skill_id": "withdraw_from_bell",
+      "skill_text": "Lift the left gripper away from the bell button after pressing it.",
+      "bindings": {
+        "object": "the bell",
+        "arm": "left",
+        "destination": ""
+      },
+      "task": "click_bell",
+      "max_policy_steps": 100,
+      "precondition": "The gripper has contacted the bell button.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    },
+    {
+      "id": "atomic_111",
+      "condition_index": 111,
+      "condition_key": "withdraw_from_bell|Lift the right gripper away from the bell button after pressing it.",
+      "skill_id": "withdraw_from_bell",
+      "skill_text": "Lift the right gripper away from the bell button after pressing it.",
+      "bindings": {
+        "object": "the bell",
+        "arm": "right",
+        "destination": ""
+      },
+      "task": "click_bell",
+      "max_policy_steps": 100,
+      "precondition": "The gripper has contacted the bell button.",
+      "policy_checkpoint": "pretrained/simulation/old20/skill_checkpoint.pt",
+      "completion_checkpoint": "pretrained/simulation/old20/completion_checkpoint.pt",
+      "stop_config": {
+        "threshold": 0.9,
+        "consecutive_observations": 2
+      },
+      "executor": "SkillExecutor.start/step",
+      "termination": "learned completion probability >= 0.9 on 2 consecutive observations; timeout is separate",
+      "automatic_next_skill": false,
+      "capability_status": "trained; inspect held-out skill evaluation before making capability claims"
+    }
+  ]
+}

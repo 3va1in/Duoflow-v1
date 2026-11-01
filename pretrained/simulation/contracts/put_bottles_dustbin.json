@@ -1,0 +1,23 @@
+{
+  "task": "put_bottles_dustbin",
+  "native_stage_spec": {
+    "stages": [
+      {
+        "skill_id": "pick_and_lift",
+        "bindings": {
+          "object": "the bottle initially on the left"
+        },
+        "arm_relation": "same_object"
+      }
+    ]
+  },
+  "actor_bank": "new30_frozen",
+  "source": "first successful train episode and trained catalog",
+  "evaluation_data_used": false,
+  "training_reference_stage_count": 11,
+  "available_stage_count": 1,
+  "coverage": "trained_prefix",
+  "first_unavailable_stage": "dynamic_branch_uses_trained_prefix_then_original_whole_actor",
+  "whole_task_tail_logged_separately": true,
+  "completion_head": "current_RGB_qpos_condition_not_pair_head"
+}

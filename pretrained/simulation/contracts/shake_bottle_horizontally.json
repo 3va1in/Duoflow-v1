@@ -1,0 +1,79 @@
+{
+  "task": "shake_bottle_horizontally",
+  "native_stage_spec": {
+    "stages": [
+      {
+        "skill_id": "pick_and_lift",
+        "bindings": {
+          "object": "the bottle"
+        },
+        "arm_relation": "same_object"
+      },
+      {
+        "skill_id": "orient_for_horizontal_shake",
+        "bindings": {
+          "object": "the bottle"
+        },
+        "arm_relation": "same_object"
+      },
+      {
+        "skill_id": "tilt_for_shake",
+        "bindings": {
+          "object": "the bottle"
+        },
+        "arm_relation": "same_object"
+      },
+      {
+        "skill_id": "shake_downward",
+        "bindings": {
+          "object": "the bottle"
+        },
+        "arm_relation": "same_object"
+      },
+      {
+        "skill_id": "shake_upward",
+        "bindings": {
+          "object": "the bottle"
+        },
+        "arm_relation": "same_object"
+      },
+      {
+        "skill_id": "shake_downward",
+        "bindings": {
+          "object": "the bottle"
+        },
+        "arm_relation": "same_object"
+      },
+      {
+        "skill_id": "shake_upward",
+        "bindings": {
+          "object": "the bottle"
+        },
+        "arm_relation": "same_object"
+      },
+      {
+        "skill_id": "shake_downward",
+        "bindings": {
+          "object": "the bottle"
+        },
+        "arm_relation": "same_object"
+      },
+      {
+        "skill_id": "return_held_bottle",
+        "bindings": {
+          "object": "the bottle"
+        },
+        "arm_relation": "same_object"
+      }
+    ]
+  },
+  "actor_bank": "new30_frozen",
+  "source": "first successful train episode and trained catalog",
+  "evaluation_data_used": false,
+  "training_reference_stage_count": 9,
+  "available_stage_count": 9,
+  "coverage": "catalog_stage_chain",
+  "first_unavailable_stage": null,
+  "whole_task_tail_logged_separately": true,
+  "completion_head": "current_RGB_qpos_condition_not_pair_head"
+}

@@ -1,0 +1,22 @@
+{
+  "task": "place_shoe",
+  "native_stage_spec": {
+    "stages": [
+      {
+        "skill_id": "grasp_and_lift_shoe",
+        "bindings": {
+          "object": "shoe"
+        },
+        "arm_relation": "same_object"
+      }
+    ]
+  },
+  "actor_bank": "original20_frozen",
+  "source": "first accepted TRAIN episode, ordered expert skill segments; catalog-available prefix only",
+  "available_stage_count": 1,
+  "training_reference_stage_count": 2,
+  "coverage": "trained_prefix",
+  "first_unavailable_stage": "align_and_release_shoe",
+  "whole_task_tail_logged_separately": true,
+  "evaluation_data_used": false
+}
