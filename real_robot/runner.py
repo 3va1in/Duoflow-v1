@@ -114,6 +114,8 @@ def run_trial(config, mode, robot, cameras, policy, journal):
                 if (journal.root / 'STOP').exists():
                     raise KeyboardInterrupt('收到 STOP 文件')
                 cameras.read()
+                if hasattr(policy, 'check_connection'):
+                    policy.check_connection()
                 current = robot.read()
                 if limits is not None:
                     limits.check_tracking(current, physical)
@@ -149,6 +151,8 @@ def run_trial(config, mode, robot, cameras, policy, journal):
                 started = time.monotonic()
                 if (journal.root / 'STOP').exists():
                     raise KeyboardInterrupt('收到 STOP 文件')
+                if hasattr(policy, 'check_connection'):
+                    policy.check_connection()
                 cameras.read()
                 measured = robot.read()
                 limits.check_tracking(measured, previous)
@@ -182,6 +186,11 @@ def run_trial(config, mode, robot, cameras, policy, journal):
         result['cleanup_errors'].extend(robot.stop(emergency))
         result['cleanup_errors'].extend(robot.close())
         result['cleanup_errors'].extend(cameras.close())
+        if policy is not None and hasattr(policy, 'close'):
+            try:
+                policy.close()
+            except Exception as exc:
+                result['cleanup_errors'].append(f'policy.close: {exc}')
         if result['cleanup_errors']:
             result['status'] = 'cleanup_error'
         journal({'event': 'trial_end', **result})

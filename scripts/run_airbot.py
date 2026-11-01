@@ -17,6 +17,7 @@ os.environ.setdefault('TWINTIMEFM_ASSETS', str(REPO / 'models/base'))
 from real_robot.airbot import DualAirbot, load_sdk
 from real_robot.cameras import CameraRig, list_cameras
 from real_robot.policy import RobotPolicy, bundle_paths
+from real_robot.remote import RemotePolicy, ssh_command
 from real_robot.runner import Journal, run_trial, validate_config
 
 
@@ -28,6 +29,9 @@ def main():
     parser.add_argument('--policy', choices=('skill', 'native', 'duoflow'), default='native')
     parser.add_argument('--skill-id')
     parser.add_argument('--list-skills', action='store_true')
+    parser.add_argument('--remote-host', help='5090 的 SSH 别名或 user@host；不填则本机推理')
+    parser.add_argument('--remote-repo', help='5090 上 DuoFlow 仓库的绝对路径')
+    parser.add_argument('--remote-python', help='5090 策略环境 Python 的绝对路径')
     parser.add_argument('--run-dir', help='新建回合目录，不能复用已有目录')
     args = parser.parse_args()
     if args.list_cameras:
@@ -35,9 +39,14 @@ def main():
         return 0
     if not args.config:
         parser.error('请提供 --config，或用 --list-cameras 列出设备')
+    if args.remote_host and (not args.remote_repo or not args.remote_python):
+        parser.error('--remote-host 需要同时提供 --remote-repo 和 --remote-python')
+    if not args.remote_host and (args.remote_repo or args.remote_python):
+        parser.error('远端路径需与 --remote-host 一起使用')
     config = json.loads(Path(args.config).expanduser().read_text())
     bundle = Path(config['bundle']).expanduser()
-    config['bundle'] = str((REPO / bundle).resolve())
+    if not args.remote_host or args.list_skills:
+        config['bundle'] = str((REPO / bundle).resolve())
     if args.list_skills:
         paths = bundle_paths(config['bundle'], config['task'])
         cards = json.loads(paths['catalog'].read_text())['skills']
@@ -49,7 +58,8 @@ def main():
     directory = args.run_dir or str(REPO / 'runs/airbot' / datetime.now().strftime('%Y%m%d_%H%M%S_%f'))
     journal = Journal(directory)
     (journal.root / 'CONFIG.json').write_text(json.dumps(
-        {'mode': args.mode, 'policy': args.policy, 'skill_id': args.skill_id, 'config': config},
+        {'mode': args.mode, 'policy': args.policy, 'skill_id': args.skill_id, 'config': config,
+         'remote_host': args.remote_host, 'remote_repo': args.remote_repo, 'remote_python': args.remote_python},
         ensure_ascii=False, indent=2) + '\n')
     print(f'回合目录: {journal.root.resolve()}\n模式: {args.mode} / {args.policy}', flush=True)
 
@@ -57,13 +67,18 @@ def main():
         raise KeyboardInterrupt(f'收到信号 {signum}')
 
     signal.signal(signal.SIGTERM, interrupted)
-    robot = cameras = None
+    robot = cameras = policy = None
     handed_to_runner = False
     try:
         sdk = load_sdk()
         # 大模型先加载；模型或路径报错时尚未连接机器人。
-        policy = None if args.mode == 'observe' else RobotPolicy(
-            config, args.policy, args.skill_id, journal.root, REPO, journal)
+        if args.mode != 'observe':
+            if args.remote_host:
+                command = ssh_command(args.remote_host, args.remote_repo, args.remote_python)
+                print('正在通过 SSH 加载远端策略；日志见回合目录 remote_stderr.log', flush=True)
+                policy = RemotePolicy(command, config, args.policy, args.skill_id, journal)
+            else:
+                policy = RobotPolicy(config, args.policy, args.skill_id, journal.root, REPO, journal)
         cameras = CameraRig(config['cameras'])
         robot = DualAirbot(config['robot'], journal, sdk=sdk)
         handed_to_runner = True
@@ -84,6 +99,11 @@ def main():
                 errors.extend(robot.close())
             if cameras is not None:
                 errors.extend(cameras.close())
+            if policy is not None and hasattr(policy, 'close'):
+                try:
+                    policy.close()
+                except Exception as exc:
+                    errors.append(f'policy.close: {exc}')
             journal({'event': 'startup_failed', 'cleanup_errors': errors})
 
 

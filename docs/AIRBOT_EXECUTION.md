@@ -2,6 +2,8 @@
 
 `scripts/run_airbot.py` 连接两台 AIRBOT Play（各带两指夹爪）和三路 RealSense。机械臂接口对应 **airbot_py 5.1.6**，相机按序列号固定为全局、左腕、右腕。一次运行记录一个回合。
 
+**相机与机械臂在一台电脑、策略在 dawn/5090 时，请使用 [双机部署说明](TWO_HOST_AIRBOT.md)。** 本文的设备枚举与采集命令均在相机所在电脑执行；普通 SSH 登录不会把设备自动带到另一台主机。执行入口支持 `--remote-host`，可保留本机采集与控制，将推理放到 dawn。
+
 | 策略 | 实际调用 |
 |---|---|
 | `--policy skill --skill-id atomic_057` | 指定技能 LoRA、匹配完成头与新观测完成确认 |

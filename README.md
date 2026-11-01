@@ -20,6 +20,7 @@ RTX 5090 / Ubuntu 20.04 的环境安装与本账号 ChatGPT 计划用量接入�
 | `method/astra_planner.py` | Astra 请求、结构化响应及文件传输客户端 |
 | `training/` | 技能 LoRA、单帧 RGB/状态完成头训练及 catalog 导出 |
 | `scripts/run_airbot.py` / `real_robot/` | 双 AIRBOT、三路 RealSense 相机、只读/预测/执行及回合日志 |
+| `scripts/run_policy_worker.py` | SSH 单回合远端推理，设备端保留采集与执行 |
 | `runtime/XPolicyLab/policy/TwinTimeFM/` | 原生动作模型加载、LoRA、数据工具和依赖源码 |
 | `runtime/env_cfg/` | 历史动作维度注册信息，不是真机驱动配置 |
 
@@ -57,6 +58,8 @@ models/base/
 原始资产来源见 `runtime/XPolicyLab/policy/TwinTimeFM/ASSET_SOURCES.json`。其中的 RoboTwin Clean 权重是仿真初始化来源，不是真机训练结果。
 
 ## 真机迁移
+
+相机与机械臂连接设备电脑、GPU 在另一台 dawn/5090 主机时，按 [双机部署说明](docs/TWO_HOST_AIRBOT.md) 运行。入口从设备电脑发起 SSH，将三路 RGB 与状态发送到 dawn 做推理；设备电脑不需要 CUDA 或基础大模型。
 
 两台 AIRBOT Play 配三路 RealSense 相机的具体入口见 [AIRBOT 执行说明](docs/AIRBOT_EXECUTION.md)。默认只读，可分别运行单技能、完整 native 和 Astra + native 回退。当前对接 `airbot_py 5.1.6`，RealSense 按序列号绑定全局和左右腕；无需换用新版 SDK。脚本不会直接把未标定的仿真动作发送给机械臂。
 

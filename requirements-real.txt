@@ -1,2 +1,4 @@
 # airbot_py 5.1.6 沿用与现有服务端配套的厂商 wheel，不在这里替换 SDK。
 pyrealsense2>=2.55,<3
+numpy>=1.24
+Pillow>=9.2
