@@ -1,4 +1,6 @@
 import copy
+import builtins
+from importlib.metadata import PackageNotFoundError
 import json
 from enum import Enum
 from pathlib import Path
@@ -6,10 +8,12 @@ import tempfile
 import time
 from types import SimpleNamespace
 import unittest
+from unittest.mock import patch
+import sys
 
 import numpy as np
 
-from real_robot.airbot import DualAirbot, JointMapping, MotionLimits
+from real_robot.airbot import DualAirbot, JointMapping, MotionLimits, load_sdk
 from real_robot.policy import bundle_paths, model_config, model_observation
 from real_robot.runner import Journal, run_trial, validate_config
 
@@ -101,6 +105,38 @@ class Policy:
         self.observations.append(state.copy())
         time.sleep(self.delay)
         return self.actions.copy(), 'running'
+
+
+class SdkLoadingTests(unittest.TestCase):
+    def test_missing_sdk_identifies_current_python(self):
+        with patch('importlib.metadata.version', side_effect=PackageNotFoundError('airbot_py')):
+            with self.assertRaises(RuntimeError) as caught:
+                load_sdk()
+        self.assertIn(sys.executable, str(caught.exception))
+        self.assertIn('未安装', str(caught.exception))
+        self.assertIsInstance(caught.exception.__cause__, PackageNotFoundError)
+
+    def test_wrong_version_does_not_attempt_import(self):
+        with patch('importlib.metadata.version', return_value='5.2.0'):
+            with self.assertRaisesRegex(RuntimeError, '已安装 5.2.0'):
+                load_sdk()
+
+    def test_dependency_error_keeps_original_reason(self):
+        original_import = builtins.__import__
+        failure = ModuleNotFoundError("No module named 'grpc'", name='grpc')
+
+        def import_sdk(name, *args, **kwargs):
+            if name == 'airbot_py.arm':
+                raise failure
+            return original_import(name, *args, **kwargs)
+
+        with patch('importlib.metadata.version', return_value='5.1.6'):
+            with patch('builtins.__import__', side_effect=import_sdk):
+                with self.assertRaises(RuntimeError) as caught:
+                    load_sdk()
+        self.assertIn("No module named 'grpc'", str(caught.exception))
+        self.assertIn('已安装，但导入失败', str(caught.exception))
+        self.assertIs(caught.exception.__cause__, failure)
 
 
 class AirbotTests(unittest.TestCase):

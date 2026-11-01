@@ -45,6 +45,29 @@ python scripts/run_airbot.py --list-cameras
 
 以上命令在**设备电脑本机终端**执行，不能在 SSH 登录 dawn 后执行。若 SDK 装在别的 Python 环境，使用对应环境，或在独立 Python 3.11 环境安装同一个厂商 wheel。
 
+### 当前环境找不到 AIRBOT SDK
+
+`requirements-real.txt` 不包含厂商 wheel。dawn 或系统 Python 中安装过 SDK，也不会自动安装到设备电脑新建的 conda 环境。先在报错的同一个终端检查：
+
+```bash
+python -c "import sys; print(sys.executable)"
+python -m pip show airbot_py
+python -c "import airbot_py.arm"
+```
+
+若当前环境未安装，下载[厂商 5.1.6 SDK 包](https://docs.discover-robotics.com/document/assets/airbot-play/5.1.6/5.1.6.zip)，解压后用当前 Python 安装其中的 wheel。以下命令仅提取和安装 Python SDK，不运行包里的驱动安装或固件升级程序：
+
+```bash
+mkdir -p runs/vendor/airbot516
+curl -fL --output runs/vendor/airbot516/5.1.6.zip \
+  https://docs.discover-robotics.com/document/assets/airbot-play/5.1.6/5.1.6.zip
+python -m zipfile -e runs/vendor/airbot516/5.1.6.zip runs/vendor/airbot516
+python -m pip install runs/vendor/airbot516/5.1.6/airbot_py-5.1.6-py3-none-any.whl
+python -c "import airbot_py.arm; print('AIRBOT SDK import OK')"
+```
+
+普通 wheel 安装会按厂商声明安装 `grpcio==1.70.0`、`grpcio-tools==1.70.0`、`typeguard==4.4.0` 等依赖，不要加 `--no-deps`。若 `pip show` 已显示 `5.1.6` 但 `import airbot_py.arm` 失败，以该导入命令的完整异常为准处理缺失依赖或版本冲突。不要用 `arm_sdk` 替代此入口所用的 `airbot_py 5.1.6`。
+
 ## 2. 设备电脑：填写相机和机械臂配置
 
 关闭占用相机的 RealSense Viewer。创建配置时保留已有文件：

@@ -11,14 +11,22 @@ import numpy as np
 
 
 def load_sdk():
-    from importlib.metadata import version
+    from importlib.metadata import PackageNotFoundError, version
+    import sys
     try:
         installed = version('airbot_py')
-        if installed != '5.1.6':
-            raise RuntimeError(f'本驱动对应 airbot_py 5.1.6，已安装 {installed}')
+    except PackageNotFoundError as exc:
+        raise RuntimeError(
+            f'当前 Python ({sys.executable}) 未安装厂商 airbot_py 5.1.6；'
+            '请用该 Python 的 -m pip install 安装厂商 wheel，见 docs/TWO_HOST_AIRBOT.md') from exc
+    if installed != '5.1.6':
+        raise RuntimeError(f'本驱动对应 airbot_py 5.1.6，已安装 {installed}；Python: {sys.executable}')
+    try:
         import airbot_py.arm as sdk
     except ImportError as exc:
-        raise RuntimeError('请在当前环境安装厂商 airbot_py-5.1.6 wheel；无需更换服务端或固件') from exc
+        raise RuntimeError(
+            f'airbot_py 5.1.6 已安装，但导入失败: {type(exc).__name__}: {exc}；'
+            f'Python: {sys.executable}。请在该环境执行 python -c "import airbot_py.arm" 查看完整错误') from exc
     return sdk
 
 
