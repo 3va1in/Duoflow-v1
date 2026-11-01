@@ -2,7 +2,7 @@
 
 用于把 DuoFlow 方法源码迁移到新主机，开展双臂真机适配。仓库包含 Astra 技能编排、原子技能执行、完成预测、完整 native 回退控制器，以及技能训练代码。不包含 RoboTwin 场景、物体资源、专家采集程序或旧实验调度器。
 
-当前交付包含**方法源码、独立 Astra 登录桥及 LeRobot v2.1/v3 数据转换脚本**。机器人驱动、采集字段映射及真机权重需根据实验设备配置；克隆仓库不会直接启动机器人。
+当前交付包含**方法源码、独立 Astra 登录桥、LeRobot v2.1/v3 数据转换脚本及双 AIRBOT Play 执行入口**。设备标定、采集字段映射及真机权重需根据实验设备配置；克隆仓库不会直接启动机器人。
 
 已加入**仿真技能权重包**：原 20 任务与新增 30 任务两套技能 LoRA、匹配完成头、329 张技能卡，以及 native 动作权重和本地选择器。更新及基础模型下载命令见 [仿真权重迁移](docs/SIMULATION_WEIGHTS.md)。
 
@@ -19,6 +19,7 @@ RTX 5090 / Ubuntu 20.04 的环境安装与本账号 ChatGPT 计划用量接入�
 | `method/skill_policy.py` | 原集成接口，仍使用 XPolicyLab 观测格式 |
 | `method/astra_planner.py` | Astra 请求、结构化响应及文件传输客户端 |
 | `training/` | 技能 LoRA、单帧 RGB/状态完成头训练及 catalog 导出 |
+| `scripts/run_airbot.py` / `real_robot/` | 双 AIRBOT、三路 RealSense 相机、只读/预测/执行及回合日志 |
 | `runtime/XPolicyLab/policy/TwinTimeFM/` | 原生动作模型加载、LoRA、数据工具和依赖源码 |
 | `runtime/env_cfg/` | 历史动作维度注册信息，不是真机驱动配置 |
 
@@ -56,6 +57,8 @@ models/base/
 原始资产来源见 `runtime/XPolicyLab/policy/TwinTimeFM/ASSET_SOURCES.json`。其中的 RoboTwin Clean 权重是仿真初始化来源，不是真机训练结果。
 
 ## 真机迁移
+
+两台 AIRBOT Play 配三路 RealSense 相机的具体入口见 [AIRBOT 执行说明](docs/AIRBOT_EXECUTION.md)。默认只读，可分别运行单技能、完整 native 和 Astra + native 回退。当前对接 `airbot_py 5.1.6`，RealSense 按序列号绑定全局和左右腕；无需换用新版 SDK。脚本不会直接把未标定的仿真动作发送给机械臂。
 
 按 [真机迁移说明](docs/REAL_ROBOT.md) 接入观测、动作和数据。最初先完成本地 native 单任务执行，再加入技能与完成头，最后接入 Astra 编排及 native 回退。
 

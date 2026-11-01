@@ -1,0 +1,44 @@
+{
+  "bundle": "pretrained/simulation",
+  "task": "rotate_qrcode",
+  "instruction": "Rotate the QR code card toward the front camera.",
+  "seed": 0,
+  "max_steps": 300,
+  "frequency_hz": 10.0,
+  "inference_timeout_s": 120.0,
+  "max_cycle_overrun_s": 0.1,
+  "planner_call_limit": 20,
+  "allow_cloud_observations": false,
+  "astra_request_root": "/absolute/path/to/Duoflow-v1/runs/astra_real",
+  "robot": {
+    "left": {"host": "127.0.0.1", "port": 50051},
+    "right": {"host": "127.0.0.1", "port": 50052},
+    "rpc_timeout_ms": 100,
+    "max_state_age_s": 0.3,
+    "max_command_skew_s": 0.05
+  },
+  "cameras": {
+    "serials": {
+      "cam_high": "GLOBAL_CAMERA_SERIAL",
+      "cam_left_wrist": "LEFT_WRIST_SERIAL",
+      "cam_right_wrist": "RIGHT_WRIST_SERIAL"
+    },
+    "width": 640,
+    "height": 480,
+    "fps": 30,
+    "max_age_s": 0.3,
+    "max_skew_s": 0.1
+  },
+  "calibration": {
+    "verified": false,
+    "model_from_robot": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+    "scale": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    "offset": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  },
+  "limits": {
+    "position_min": null,
+    "position_max": null,
+    "max_velocity": null,
+    "max_tracking_error": null
+  }
+}
