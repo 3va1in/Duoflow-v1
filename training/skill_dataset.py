@@ -65,14 +65,22 @@ def completion_label(segment, frame):
 
 
 def bounded_targets(rows, index, segment, horizon=50):
-    """目标为下一次记录的 state；末观测没有动作监督。"""
+    """末帧是技能终止观测，不把其后的动作归到本技能。"""
     end = int(segment['end_frame'])
-    eligible = [row for row in rows[index + 1:index + 1 + horizon]
-                if int(row['frame_index']) <= end]
+    source = segment.get('action_source', 'next_state')
+    if source == 'recorded_action':
+        eligible = [row for row in rows[index:index + horizon]
+                    if int(row['frame_index']) < end]
+        values = [row['action'] for row in eligible]
+    elif source == 'next_state':
+        eligible = [row for row in rows[index + 1:index + 1 + horizon]
+                    if int(row['frame_index']) <= end]
+        values = [row['state'] for row in eligible]
+    else:
+        raise ValueError(f'未知动作监督来源: {source}')
     valid_action = segment.get('action_train_valid',
                                segment.get('label_valid', False) and
                                segment.get('postcondition_success', False))
-    values = [row['state'] for row in eligible]
     mask = [bool(valid_action)] * len(values)
     fill = values[-1] if values else rows[index]['state']
     values += [fill] * (horizon - len(values))

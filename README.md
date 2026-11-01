@@ -2,7 +2,7 @@
 
 用于把 DuoFlow 方法源码迁移到新主机，开展双臂真机适配。仓库包含 Astra 技能编排、原子技能执行、完成预测、完整 native 回退控制器，以及技能训练代码。不包含 RoboTwin 场景、物体资源、专家采集程序或旧实验调度器。
 
-当前交付包含**方法源码和独立 Astra 登录桥**。机器人驱动、真机数据转换及真机权重仍需根据实验设备配置；克隆仓库不会直接启动机器人。
+当前交付包含**方法源码、独立 Astra 登录桥及 LeRobot v2.1/v3 数据转换脚本**。机器人驱动、采集字段映射及真机权重需根据实验设备配置；克隆仓库不会直接启动机器人。
 
 已加入**仿真技能权重包**：原 20 任务与新增 30 任务两套技能 LoRA、匹配完成头、329 张技能卡，以及 native 动作权重和本地选择器。更新及基础模型下载命令见 [仿真权重迁移](docs/SIMULATION_WEIGHTS.md)。
 
@@ -26,7 +26,7 @@ RTX 5090 / Ubuntu 20.04 的环境安装与本账号 ChatGPT 计划用量接入�
 
 ## 新主机下载与控制逻辑检查
 
-在新主机上使用有该私有仓库读取权限的 GitHub 账号克隆：
+在新主机上克隆：
 
 ```bash
 git clone https://github.com/3va1in/Duoflow-v1.git
@@ -59,6 +59,8 @@ models/base/
 
 按 [真机迁移说明](docs/REAL_ROBOT.md) 接入观测、动作和数据。最初先完成本地 native 单任务执行，再加入技能与完成头，最后接入 Astra 编排及 native 回退。
 
+使用 LeRobot 采集时，按 [数据转换与技能标注说明](docs/LEROBOT_CONVERSION.md) 生成原子技能和完成头共用的数据目录。支持 v2.1/v3.0、图像和视频，保留真实下发动作及显式完成标签。
+
 原训练入口可通过以下命令查看参数：
 
 ```bash
@@ -67,7 +69,7 @@ python training/train_completion.py --help
 python training/export_catalog.py --help
 ```
 
-运行训练前须完成动作监督与真机归一化的适配；不要直接把真实测量关节状态当作旧仿真 drive-target。
+运行训练前须确认动作字段映射与真机归一化；不要直接把真实测量关节状态当作旧仿真 drive-target。
 
 ## GitHub 与模型文件
 

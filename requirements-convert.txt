@@ -1,0 +1,3 @@
+-r requirements-control.txt
+pyarrow==20.0.0
+av==13.1.0

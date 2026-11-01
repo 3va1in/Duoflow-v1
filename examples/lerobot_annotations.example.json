@@ -1,0 +1,168 @@
+{
+  "format": "duoflow_lerobot_annotations_v1",
+  "camera_map": {
+    "cam_high": "observation.images.top",
+    "cam_left_wrist": "observation.images.left",
+    "cam_right_wrist": "observation.images.right"
+  },
+  "state": {
+    "key": "observation.state",
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ]
+  },
+  "action": {
+    "key": "action",
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "mode": "absolute_joint",
+    "alignment": "same_row"
+  },
+  "episodes": [
+    {
+      "episode_index": 0,
+      "task": "pick_place_block",
+      "split": "train",
+      "segments": [
+        {
+          "skill_id": "pick_and_lift",
+          "skill_text": "Grasp and lift the red block with the left arm.",
+          "bindings": {
+            "arm": "left",
+            "object": "red block",
+            "destination": "above the table"
+          },
+          "precondition": "The red block is on the table and reachable by the left arm.",
+          "max_policy_steps": 250,
+          "start_frame": 0,
+          "end_frame": 99,
+          "action_train_valid": true,
+          "completion_spans": [
+            {
+              "start_frame": 0,
+              "end_frame": 10,
+              "label": 0
+            },
+            {
+              "start_frame": 95,
+              "end_frame": 99,
+              "label": 1
+            }
+          ]
+        },
+        {
+          "skill_id": "place_and_release",
+          "skill_text": "Place the red block on the tray and release it with the left arm.",
+          "bindings": {
+            "arm": "left",
+            "object": "red block",
+            "destination": "tray"
+          },
+          "precondition": "The left gripper holds the red block and the tray is available.",
+          "max_policy_steps": 350,
+          "start_frame": 99,
+          "end_frame": 179,
+          "action_train_valid": true,
+          "completion_spans": [
+            {
+              "start_frame": 99,
+              "end_frame": 110,
+              "label": 0
+            },
+            {
+              "start_frame": 175,
+              "end_frame": 179,
+              "label": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "episode_index": 1,
+      "task": "pick_place_block",
+      "split": "val",
+      "segments": [
+        {
+          "skill_id": "pick_and_lift",
+          "skill_text": "Grasp and lift the red block with the left arm.",
+          "bindings": {
+            "arm": "left",
+            "object": "red block",
+            "destination": "above the table"
+          },
+          "precondition": "The red block is on the table and reachable by the left arm.",
+          "max_policy_steps": 250,
+          "start_frame": 0,
+          "end_frame": 99,
+          "action_train_valid": true,
+          "completion_spans": [
+            {
+              "start_frame": 0,
+              "end_frame": 10,
+              "label": 0
+            },
+            {
+              "start_frame": 95,
+              "end_frame": 99,
+              "label": 1
+            }
+          ]
+        },
+        {
+          "skill_id": "place_and_release",
+          "skill_text": "Place the red block on the tray and release it with the left arm.",
+          "bindings": {
+            "arm": "left",
+            "object": "red block",
+            "destination": "tray"
+          },
+          "precondition": "The left gripper holds the red block and the tray is available.",
+          "max_policy_steps": 350,
+          "start_frame": 99,
+          "end_frame": 179,
+          "action_train_valid": true,
+          "completion_spans": [
+            {
+              "start_frame": 99,
+              "end_frame": 110,
+              "label": 0
+            },
+            {
+              "start_frame": 175,
+              "end_frame": 179,
+              "label": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
